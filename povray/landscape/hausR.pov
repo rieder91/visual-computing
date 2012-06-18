@@ -105,8 +105,41 @@ union
     // DACH
 
     // TODO: Hier ist das Dach zu zeichnen. Die Parameter sind in der Datei "hausInit.inc" zu finden.
-    //       Nicht vergessen, dass das Dach ueber die Grenzen der Hauswaende auskragt!
-
+    //       Nicht vergessen, dass das Dach ueber die Grenzen der Hauswaende auskragt!   
+    #declare dach = union {
+    
+        box {
+            <Hx + DachUeberstand, Hy, Hz + DachUeberstand>
+            <Hx - HausSX - DachUeberstand, Hy + DachKranzHoehe,Hz - HausSZ - DachUeberstand>
+        }
+        
+        #if (GiebelDach | true)
+        // Giebeldach(2 Seiten geneigt, 2 Seiten vertikal)
+         
+            object {    
+                prism {
+                    0, HausSZ + 2*DachUeberstand, 4
+                    <0, 0>,
+                    <0 - HausSX - 2*DachUeberstand, 0>
+                    <(0 - HausSX - 2*DachUeberstand) / 2.0, DachFirstHoehe>
+                    <0, 0>
+                }
+                rotate <-90,0,0>
+                translate <Hx+DachUeberstand,DachKranzHoehe,Hz+DachUeberstand>
+            }   
+            
+        #else
+        // Walmdach(alle Seiten geneigt)
+        
+              
+              
+        #end
+    }
+    
+    // Dach erzeugen und nach oben schieben
+    object { dach translate<0,BasisHoehe + HausHoehe,0> } 
+    
+    
     // DEKORATION
     #if (HausDekoration = 1)
         difference
@@ -154,7 +187,7 @@ union
         camera
         {
             //orthographic
-            location <-10, 6, -10>
+            location <-15, 10, -15>
             look_at <0, 0, 0>
         }
 

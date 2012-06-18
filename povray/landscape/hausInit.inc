@@ -31,7 +31,7 @@
         BasisHoehe + HausHoehe;         
     #declare PfostenBreite = 0.3;       // ein Pfosten ist eine quadratische Stuetze, die an jedem Eck des Hauses steht
     
-    #declare DachFirstHoehe = 0.0;      //*DachFirstHoehe (vertikaler Abstand von der Traufe(Wandoberkante) bis zum First(Dachspitze))   
+    #declare DachFirstHoehe = 3.2;      //*DachFirstHoehe (vertikaler Abstand von der Traufe(Wandoberkante) bis zum First(Dachspitze))   
     #declare DachKranzHoehe = 0.3;      // Der vertikale Teil des Dachs bevor die Neigung zum First hin anfaengt
     #declare DachUeberstand = 0.5;      // Auskragung des Dachs ueber die Hauswaende hinaus     
     #//TODO Berechne die Dachwinkel hier, falls sie notwendig sein sollten 
