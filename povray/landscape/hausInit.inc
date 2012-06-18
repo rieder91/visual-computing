@@ -10,15 +10,16 @@
     #declare BasisHoehe = 0.3;          // inkludiert in der Haushoehe (d.h. der Hausboden ist 0.3 Einheiten hoeher als der Hof)
     
     #declare HausHofAbstandX = 5;       //*Abstand vom Haus zum Hof X 
-    #declare HausHofAbstandZ = 6;       //*Abstand vom Haus zum Hof X  
+    #declare HausHofAbstandZ = 6;       //*Abstand vom Haus zum Hof Z  
     
-    #declare HofSX =                    // unbebaute Hofbreite 
-        sx + HausHofAbstandX;
-    #declare HofSZ =                    // unbebaute Hoftiefe  
-        sz + HausHofAbstandZ;  
+    #declare HofSX = 5;                 //*unbebaute Hofbreite 
+    #declare HofSZ = 6;                 //*unbebaute Hoftiefe
+     
+    #declare GesSX = sx + HofSX;        // Gesamte Breite
+    #declare GesSZ = sz + HofSZ;        // Gesamte Tiefe     
     
     #declare ZaunBreite = 0.2;          // ZaunBreite
-    #declare ZaunHoehe = 1.5;           //*ZaunHoehe
+    #declare ZaunHoehe = 1.49;           //*ZaunHoehe
                                         
     #declare HausSX = sx;               // Breite des Hauses
     #declare HausSZ = sz;               // Tiefe des Hauses

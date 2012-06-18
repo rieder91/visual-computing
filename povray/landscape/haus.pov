@@ -22,12 +22,59 @@
         //       Falls der Zaun eine Hoehe von weniger als 1.5 hat, soll er einen Aufsatz
         //       bekommen, der so hoch ist wie der Zaun breit ist, eine Breite von 0.4 hat,
         //       und mittig auf dem Zaun sitzt.
-                         
-        box {
-            <Hx - HausSX,Hy,Hz>
-            <Hx - HofSX, Hy + ZaunHoehe, Hz - ZaunBreite>
-            translate <ZaunBreite/2.0,0,0>
-        }                 
+        
+        
+        union {
+            // Mauer hinten                 
+            box {
+                <Hx - HausSX, Hy, Hz>
+                <Hx - GesSX, Hy + ZaunHoehe, Hz - ZaunBreite>
+            }
+            // Mauer links
+            box {
+                <Hx - GesSX, Hy, Hz>
+                <Hx - GesSX + ZaunBreite, Hy + ZaunHoehe, Hz - GesSZ>
+            }
+            // Mauer vorne
+            box {
+                <Hx,Hy,Hz - GesSZ + ZaunBreite>
+                <Hx - GesSX, Hy + ZaunHoehe, Hz - GesSZ>
+            }
+            // Mauer rechts
+            box {
+                <Hx, Hy, Hz - HausSZ>
+                <Hx - ZaunBreite, Hy + ZaunHoehe, Hz - GesSZ>
+            }
+                
+                
+            // Aufsätze falls nötig  
+            #if (ZaunHoehe < 1.5)
+                    
+                #declare ZaunAufsatzBreite = 0.4;
+                    
+                // Mauer hinten                 
+                box {
+                    <Hx - HausSX, Hy + ZaunHoehe, Hz - ZaunBreite>
+                    <Hx - GesSX + ZaunBreite - ZaunAufsatzBreite, Hy + ZaunHoehe + ZaunBreite, Hz - ZaunBreite + ZaunAufsatzBreite>
+                }
+                // Mauer links
+                box {
+                    <Hx - GesSX + ZaunBreite, Hy + ZaunHoehe, Hz - ZaunBreite>
+                    <Hx - GesSX + ZaunBreite - ZaunAufsatzBreite, Hy + ZaunHoehe + ZaunBreite, Hz - GesSZ + ZaunBreite - ZaunAufsatzBreite>
+                }
+                // Mauer vorne
+                box {
+                    <Hx - GesSX + ZaunBreite, Hy + ZaunHoehe, Hz - GesSZ + ZaunBreite>
+                    <Hx - ZaunBreite + ZaunAufsatzBreite, Hy + ZaunHoehe + ZaunBreite, Hz - GesSZ + ZaunBreite - ZaunAufsatzBreite>
+                }
+                // Mauer rechts
+                box {
+                    <Hx - ZaunBreite + ZaunAufsatzBreite, Hy + ZaunHoehe, Hz - HausSZ>
+                    <Hx - ZaunBreite, Hy + ZaunHoehe + ZaunBreite, Hz - GesSZ>
+                }   
+            
+            #end
+        }                
                          
                          
         texture {T_Grnt2}
@@ -67,7 +114,7 @@
     camera
     {
         //orthographic
-        location <-10, 10, -15>
+        location <-10, 10, -20>
         look_at <0, 0, 0>
     }
     light_source {<30, 100, 0> color Gray50 }
