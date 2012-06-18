@@ -1,0 +1,12 @@
+Grayscale:
+
+imtool(ordfilt2(harry, 5, [0 1 1 1 0; 1 1 1 1 1; 1 1 1 1 1; 1 1 1 1 1; 0 1 1 1 0; ]));
+
+Farbbild:
+harryNew_R = ordfilt2(harry_red, 5, [0 1 1 1 0; 1 1 1 1 1; 1 1 1 1 1; 1 1 1 1 1; 0 1 1 1 0; ]);
+harryNew_G = ordfilt2(harry_green, 5, [0 1 1 1 0; 1 1 1 1 1; 1 1 1 1 1; 1 1 1 1 1; 0 1 1 1 0; ]);
+harryNew_B = ordfilt2(harry_blue, 5, [0 1 1 1 0; 1 1 1 1 1; 1 1 1 1 1; 1 1 1 1 1; 0 1 1 1 0; ]);
+harryNew(:,:,1) = harryNew_R;
+harryNew(:,:,2) = harryNew_G;
+harryNew(:,:,3) = harryNew_B;
+imtool(harryNew);

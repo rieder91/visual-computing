@@ -1,0 +1,2 @@
+dana = imread('in-2012-04-17-11-20-03.png');
+imwrite(imfilter(dana, [0 1 0; 1 -5 1; 0 1 0]), 'out-dana.png')

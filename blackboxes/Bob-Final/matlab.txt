@@ -1,0 +1,3 @@
+bob = imread('in-2012-04-17-10-15-24.png');
+bob_h = fspecial('gaussian', [9 9], 1.7);
+imwrite(imfilter(bob, bob_h, 'replicate'), 'bob-out.png');

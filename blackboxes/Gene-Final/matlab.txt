@@ -1,0 +1,13 @@
+Der Tonwertumfang des Bildes wird verringert:
+
+8-Bit auf 64-212
+
+gene = imread('in-2012-04-17-13-38-10.png');
+gene(gene < 64) = 64;
+gene(gene > 212) = 212;
+
+16-Bit auf 31072-58004
+
+gene = imread('in-2012-04-17-16-31-04.png');
+gene(gene < 31072) = 31072;
+gene(gene > 58004)  = 58004;

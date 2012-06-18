@@ -1,0 +1,153 @@
+Alice
+Mittelwertfilter, 3x3
+[1/9, 1/9, 1/9
+1/9, 1/9, 1/9
+1/9, 1/9, 1/9]
+
+alice = imread('in-2012-04-17-10-15-04.png');
+alice_h = fspecial('average')
+imwrite(imfilter(alice, alice_h, 'replicate'), 'out-alice.png');
+
+
+Bob
+Gauss-Filter der Größe 9x9 mit einem Sigma von 1.7
+
+bob = imread('in-2012-04-17-10-15-24.png');
+bob_h = fspecial('gaussian', [9 9], 1.7);
+imwrite(imfilter(bob, bob_h, 'replicate'), 'bob-out.png');
+
+[0.0002    0.0007    0.0018    0.0030    0.0035    0.0030    0.0018    0.0007    0.0002
+ 0.0007    0.0025    0.0059    0.0099    0.0118    0.0099    0.0059    0.0025    0.0007
+ 0.0018    0.0059    0.0140    0.0235    0.0280    0.0235    0.0140    0.0059    0.0018
+ 0.0030    0.0099    0.0235    0.0395    0.0470    0.0395    0.0235    0.0099    0.0030
+ 0.0035    0.0118    0.0280    0.0470    0.0559    0.0470    0.0280    0.0118    0.0035
+ 0.0030    0.0099    0.0235    0.0395    0.0470    0.0395    0.0235    0.0099    0.0030
+ 0.0018    0.0059    0.0140    0.0235    0.0280    0.0235    0.0140    0.0059    0.0018
+ 0.0007    0.0025    0.0059    0.0099    0.0118    0.0099    0.0059    0.0025    0.0007
+ 0.0002    0.0007    0.0018    0.0030    0.0035    0.0030    0.0018    0.0007    0.0002]
+
+ 
+Clark
+Kantendetektor mit:
+[1/4 0 -1/4
+ 1/2 0 -1/2
+ 1/4 0 -1/4]
+
+clark = imread('in-2012-04-17-10-55-00.png');
+clark_h = fspecial('sobel');
+clark_h = clark_h'
+clark_h = clark_h * 0.25
+imwrite(imfilter(clark, clark_h, 'replicate'), 'clark-out.png');
+
+Dana
+Laplace Filter mit dem Kernel:
+0     1     0
+1    -5     1
+0     1     0
+
+
+Fred
+Aus dem Graustufenbild wird mit einem Treshhold ein Binärbild erzeugt:
+
+8-Bit:
+102
+
+fred = imread('in-fred-gray.png');
+imwrite(im2bw(fred, 102/255), 'out-fred-8.png')
+
+16-Bit: 
+22331
+
+fred_16 = imread('fred-gradient.png');
+imwrite(im2bw(fred_16, 22331/65535), 'out-fred-16.png')
+
+
+Gene
+Das Histogramm der Bilder wird gestaucht.
+
+8-Bit:
+Stauchung auf 64-212
+
+gene = imread('in-2012-04-17-13-38-10.png');
+imwrite(gene + 43 - 43 - 64 + 64, 'out-gene-8.png')
+
+16-Bit
+Stauchung auf 31072-58004
+
+gene_16 = imread('in-2012-04-17-16-31-04.png');
+imwrite(gene_16 + 7531 - 7531 - 31072 + 31072, 'out-gene-16.png')
+
+
+
+Harry
+Es wird ein Rangwertfilter angewandt. Jedes Element wird anhand des 5. Nachbarn, welcher anhand des Strukturlements bestimmt wird, gesetzt.
+
+Strukturelement:
+[0 1 1 1 0; 
+ 1 1 1 1 1; 
+ 1 1 1 1 1; 
+ 1 1 1 1 1; 
+ 0 1 1 1 0; ]
+
+In Matlab:
+imtool(ordfilt2(harry, 5, [0 1 1 1 0; 1 1 1 1 1; 1 1 1 1 1; 1 1 1 1 1; 0 1 1 1 0; ]));
+
+
+Iris
+Es wird Unsharp Masking auf das Bild angewandt.
+
+Berechnung des Kernels (man rechnet sich mittels dem Eingabe- und Ausgabebild das smoothe Bild aus und extrahiert daraus den Kernel):
+iris_in = imread('pattern-iris.png');
+iris_erg = imread('out-2012-04-23-12-31-03.png');
+iris_smooth = 2 * iris_in - iris_erg - 10000;
+iris_smooth = double(iris_smooth);
+iris_h = iris_smooth/sum(sum(iris_smooth));
+
+=> Es wird ein 15x15 Kernel verwendet:
+     0         0    0.0001    0.0001    0.0001    0.0002    0.0005    0.0009    0.0005    0.0002    0.0001    0.0001    0.0001         0         0
+     0    0.0001    0.0001    0.0001    0.0002    0.0005    0.0009    0.0018    0.0009    0.0005    0.0002    0.0001    0.0001    0.0001         0
+0.0001    0.0001    0.0001    0.0002    0.0005    0.0009    0.0018    0.0035    0.0018    0.0009    0.0005    0.0002    0.0001    0.0001    0.0001
+0.0001    0.0001    0.0002    0.0005    0.0009    0.0018    0.0035    0.0070    0.0035    0.0018    0.0009    0.0005    0.0002    0.0001    0.0001
+0.0001    0.0002    0.0005    0.0009    0.0018    0.0035    0.0070    0.0141    0.0070    0.0035    0.0018    0.0009    0.0005    0.0002    0.0001
+0.0002    0.0005    0.0009    0.0018    0.0035    0.0070    0.0141    0.0281    0.0141    0.0070    0.0035    0.0018    0.0009    0.0005    0.0002
+0.0005    0.0009    0.0018    0.0035    0.0070    0.0141    0.0281    0.0562    0.0281    0.0141    0.0070    0.0035    0.0018    0.0009    0.0005
+0.0009    0.0018    0.0035    0.0070    0.0141    0.0281    0.0562    0.1123    0.0562    0.0281    0.0141    0.0070    0.0035    0.0018    0.0009
+0.0005    0.0009    0.0018    0.0035    0.0070    0.0141    0.0281    0.0562    0.0281    0.0141    0.0070    0.0035    0.0018    0.0009    0.0005
+0.0002    0.0005    0.0009    0.0018    0.0035    0.0070    0.0141    0.0281    0.0141    0.0070    0.0035    0.0018    0.0009    0.0005    0.0002
+0.0001    0.0002    0.0005    0.0009    0.0018    0.0035    0.0070    0.0141    0.0070    0.0035    0.0018    0.0009    0.0005    0.0002    0.0001
+0.0001    0.0001    0.0002    0.0005    0.0009    0.0018    0.0035    0.0070    0.0035    0.0018    0.0009    0.0005    0.0002    0.0001    0.0001
+0.0001    0.0001    0.0001    0.0002    0.0005    0.0009    0.0018    0.0035    0.0018    0.0009    0.0005    0.0002    0.0001    0.0001    0.0001
+     0    0.0001    0.0001    0.0001    0.0002    0.0005    0.0009    0.0018    0.0009    0.0005    0.0002    0.0001    0.0001    0.0001         0
+     0         0    0.0001    0.0001    0.0001    0.0002    0.0005    0.0009    0.0005    0.0002    0.0001    0.0001    0.0001         0         0
+     
+
+Das Ergebnisbild des Unsharp Masking erhält man nun durch:
+2 * Eingabe - Eingabe_smooth
+
+(bei Matlab muss man noch extra auf double casten damit man nicht aus dem uint8 bzw. uint16 Wertebereich herausfällt)
+iris_in = imread('color.png');
+iris_in = double(iris_in);
+iris_erg = 2 * iris_in - imfilter(iris_in,iris_h2,'replicate');
+% iris_erg = uint8(iris_erg); % 8-Bit
+iris_erg = uint16(iris_erg); % 16-Bit
+imwrite(iris_erg, 'out-iris.png');
+
+
+
+Kate
+Die einzelnen Farbkanäle werden neu berechnet:
+Blue = Red
+Green = 255 - Blue
+Red = 255 - Green
+
+kate = imread('in-2012-04-17-09-02-48.png');
+kate_red = kate(:,:,1);
+kate_green = kate(:,:,2);
+kate_blue = kate(:,:,3);
+kate_redNew = 255 - kate_green;
+kate_greenNew = 255 - kate_blue;
+kate_blueNew = kate_red;
+kateNew(:,:,1) = kate_redNew;
+kateNew(:,:,2) = kate_greenNew;
+kateNew(:,:,3) = kate_blueNew;
+imwrite(kateNew, 'out-kate.png')

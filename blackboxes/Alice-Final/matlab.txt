@@ -1,0 +1,3 @@
+alice = imread('in-2012-04-17-10-15-04.png');
+alice_h = fspecial('average')
+imwrite(imfilter(alice, alice_h, 'replicate'), 'out-alice.png');

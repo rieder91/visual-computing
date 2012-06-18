@@ -1,0 +1,16 @@
+kate = imread('in-2012-04-17-09-02-48.png');
+kate_red = kate(:,:,1);
+kate_green = kate(:,:,2);
+kate_blue = kate(:,:,3);
+kate_redNew = 255 - kate_green;
+kate_greenNew = 255 - kate_blue;
+kate_blueNew = kate_red;
+kateNew(:,:,1) = kate_redNew;
+kateNew(:,:,2) = kate_greenNew;
+kateNew(:,:,3) = kate_blueNew;
+imwrite(kateNew, 'out-kate.png')
+
+
+Blue = Red
+Green = 255 - Blue
+Red = 255 - Green

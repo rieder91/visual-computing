@@ -1,0 +1,5 @@
+clark = imread('in-2012-04-17-10-55-00.png');
+clark_h = fspecial('sobel');
+clark_h = clark_h'
+clark_h = clark_h * 0.25
+imwrite(imfilter(clark, clark_h, 'replicate'), 'clark-out.png');

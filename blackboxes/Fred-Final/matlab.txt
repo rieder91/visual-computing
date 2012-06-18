@@ -1,0 +1,7 @@
+8-Bit
+fred = imread('in-fred-gray.png');
+imwrite(im2bw(fred, 0.4), 'out-fred-8.png')
+
+16-Bit
+fred_16 = imread('fred-gradient.png');
+imwrite(im2bw(fred_16, 22331/65535), 'out-fred-16.png')
