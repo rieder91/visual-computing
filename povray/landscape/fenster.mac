@@ -1,0 +1,262 @@
+#include "math.inc"
+
+#macro FensterQ(b, h, spr, shape, stil)
+//INPUT:
+//       b - Breite
+//       h - Hoehe
+//       spr = 1 -> viele Sprossen
+//       spr = 2 -> weniger Sprossen
+//       shape = 1 -> rechteckig
+//       shape = 2 -> gewoelbt
+//       stil = 1 -> modern
+//       stil = 2 -> alt
+
+#local FesterTiefe = 0.2;
+#local SprossenStarke = 0.05;
+#local RahmenStaerke = 0.1;
+#declare MinFenster = RahmenStaerke*3;
+
+#if (spr = 1)
+    #local SprossenAbst_B = 0.25;
+    #local SprossenAbst_H = 0.50;
+#end
+
+#if (spr = 2)
+    #local SprossenAbst_B = 0.40;
+    #local SprossenAbst_H = 0.80;
+#end
+
+#local Dekoration_H = 0.3;
+
+#declare Sprosse_H = box //Sprosse in der Breite
+{
+    <-SprossenStarke/2, 0, -SprossenStarke/2>
+    < SprossenStarke/2, h,  SprossenStarke/2>
+    pigment {color rgb <0.667, 0.502, 0.478>}
+}
+
+#declare Sprosse_B = box //Sprosse in der Hoehe
+{
+    <-SprossenStarke/2, 0, -SprossenStarke/2>
+    < SprossenStarke/2, b,  SprossenStarke/2>
+    rotate <0, 0, 90>
+    translate <b/2, 0, 0>
+    pigment {color rgb <0.667, 0.502, 0.478>}
+}
+
+//Input Parameter testen
+#if (b >= MinFenster & h >= MinFenster & (spr = 1 | spr = 2) & (shape = 1 | shape = 2) & (stil = 1 | stil = 2))
+    union
+    {
+        // Fensterrahmen
+        #if (shape = 1)
+            // Rechteckiger Rahmen
+            difference
+            {
+                box
+                {
+                        <-b/2, 0, -FesterTiefe/2>
+                        < b/2, h,  FesterTiefe/2>
+                }
+                box
+                {
+                        <-b/2 + RahmenStaerke, RahmenStaerke, -FesterTiefe>
+                        < b/2 - RahmenStaerke, h - RahmenStaerke,  FesterTiefe>
+                }
+                pigment {color rgb <0.667, 0.502, 0.478>}
+            }
+
+        #else // Gewoelbter Rahmen
+            difference // TopArc
+            {
+                cylinder
+                {
+                        <0, h, -FesterTiefe/2>,
+                        <0, h,  FesterTiefe/2>,
+                        b/2
+                }
+                cylinder
+                {
+                        <0, h, -FesterTiefe>,
+                        <0, h,  FesterTiefe>,
+                        b/2 - RahmenStaerke
+                }
+                box
+                {
+                        <-b/2, 0, -FesterTiefe>
+                        < b/2, h,  FesterTiefe>
+                }
+                pigment {color rgb <0.667, 0.502, 0.478>}
+            }
+
+            //Das Clipping Volumen fuer die Sprossen (wird spaeter verwendet)
+            #declare ClippingVolume = difference
+            {
+                cylinder
+                {
+                        <0, h, -FesterTiefe/2>,
+                        <0, h,  FesterTiefe/2>,
+                        b*2
+                }
+                cylinder
+                {
+                        <0, h, -FesterTiefe>,
+                        <0, h,  FesterTiefe>,
+                        b/2 - RahmenStaerke
+                }
+                box
+                {
+                        <-b/2 + RahmenStaerke, RahmenStaerke, -FesterTiefe>
+                        < b/2 - RahmenStaerke, h            ,  FesterTiefe>
+                }
+                pigment {color rgb <0.667, 0.502, 0.478>}
+            }
+        #end
+
+        // Das rechteckige untere Teil
+        difference
+        {
+            box
+            {
+                    <-b/2, 0, -FesterTiefe/2>
+                    < b/2, h,  FesterTiefe/2>
+            }
+            box
+                {
+                    <-b/2 + RahmenStaerke, RahmenStaerke    , -FesterTiefe>
+                    < b/2 - RahmenStaerke, h + RahmenStaerke,  FesterTiefe>
+            }
+            pigment {color rgb <0.667, 0.502, 0.478>}
+        }
+
+        // Sprossen
+        #if (shape = 1)
+            #declare arc_H = 0;
+        #else
+            #declare arc_H = b/2;
+        #end
+
+        #declare nrS_H = floor(h/(SprossenStarke + SprossenAbst_H));
+        #declare nrS_B = floor(b/(SprossenStarke + SprossenAbst_B));
+        #declare size_H = nrS_H*SprossenAbst_H + (nrS_H - 1)*SprossenStarke;
+        #declare size_B = nrS_B*SprossenAbst_B + (nrS_B - 1)*SprossenStarke;
+
+        #declare step = 0;
+        #while (step < (h + arc_H)/2 - SprossenAbst_H*0.8)
+            #if (shape = 1)
+                object
+                {
+                    Sprosse_B
+                    translate <0, h/2 + step, 0>
+                }
+                object
+                {
+                    Sprosse_B
+                    translate <0, h/2 - step, 0>
+                }
+            #else
+                difference
+                {
+                    object
+                    {
+                        Sprosse_B
+                        translate <0, (h + arc_H)/2 + step, 0>
+                        scale <2, 1, 1>
+                    }
+                    object {ClippingVolume}
+                }
+                difference
+                {
+                    object
+                    {
+                        Sprosse_B
+                        translate <0, (h + arc_H)/2 - step, 0>
+                        scale <2, 1, 1>
+                    }
+                    object {ClippingVolume}
+                }
+            #end
+            #declare step = step + SprossenAbst_H + SprossenStarke;
+        #end
+
+        #declare step = 0;
+        #while (step < b/2 - SprossenAbst_B*0.8)
+            #if (shape = 1)
+                object
+                {
+                    Sprosse_H
+                    translate <step, 0, 0>
+                }
+                object
+                {
+                    Sprosse_H
+                    translate <-step, 0, 0>
+                }
+            #else
+                difference
+                {
+                    object
+                    {
+                        Sprosse_H
+                        translate <step, 0, 0>
+                        scale <1,1.5,1>
+                    }
+                    object {ClippingVolume}
+                }
+                difference
+                {
+                    object
+                    {
+                        Sprosse_H
+                        translate <-step, 0, 0>
+                        scale <1,1.5,1>
+                    }
+                    object {ClippingVolume}
+                }
+            #end
+            #declare step = step + SprossenAbst_B + SprossenStarke;
+        #end
+
+        // Dekoration
+        #if (stil = 2)
+            #declare tex_Dekoration = texture
+            {
+                pigment
+                {
+                    image_map
+                    {
+                        gif "Dekoration.gif"
+                        filter 0, 0.0
+                        filter 1, 1.0 
+                    }
+                }
+            }
+
+            #declare DekorationBox = box
+            {
+                <-b/2, -Dekoration_H - RahmenStaerke, -FesterTiefe/2 - 0.05>
+                < b/2,  RahmenStaerke               , -FesterTiefe/2 - 0.05 - SprossenStarke/4>
+                translate <0, -RahmenStaerke, 0>
+                texture {tex_Dekoration scale <b, Dekoration_H + RahmenStaerke*2, 1> translate <b/2 , 0, 0>}
+            }
+
+            object {DekorationBox}
+            #if (shape = 1)
+                object {DekorationBox rotate <0, 0, 180> translate <0, h, 0>}
+                object {DekorationBox rotate <0, 0,  90> scale <1, h/b, 1> translate < b/2, h/2, 0>}
+                object {DekorationBox rotate <0, 0, -90> scale <1, h/b, 1> translate <-b/2, h/2, 0>}
+            #end
+        #end
+    }
+    #else
+        // Error marker zeichnen
+        box
+        {
+            <-b/2, 0, -FesterTiefe/2>
+            < b/2, h,  FesterTiefe/2>
+            pigment {color rgb <1.0 0 0>}
+        }
+
+    #end
+#end
+

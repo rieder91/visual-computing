@@ -1,0 +1,39 @@
+#macro DreiPunkteZylinder(h, P, w, rOffset)
+//Berechnet aus 3 Punkten deren gemeinsamen Kreis und zeichnet ihn als einen Zylinder
+
+//INPUT P       ... der zweite Punkt in 2D, der das Kreis definiert. Der erste Punkt ist immer (0,0).
+//      h       ... dient zur Berechnung des dritten Punktes des Kreises: es die maximale Hoehe ueber der
+//                  Gerade, die (0,0) mit P verbindet, die das Kreis erreicht.
+//      w       ... Hoehe des gezeichneten Zylinders
+//      rOffset ... Versatz des Zylinder Radius, soll zum berechneten Radius dazugezaehlt werden
+//OUTPUT hat den Praefix result_DreiPunkteZylinder_
+//       px, py ... Zentrum des Kreises
+//       pr     ... Radius des Kreises
+
+
+// TODO: Berechne den dritten Punkt 'M' des Kreises
+
+// TODO: Berechne aus den drei Punkten O = (0,0), P und M das Zentrum und den Radius des Kreises.
+  //       Hint: Schneide die Mittelsenkrechte der zwei geraden OM und MP.
+
+// TODO: Zeichne einen Zylinder mit dem zeichneZylinder Makro
+
+// TODO: Berechne die Ausgabewerte und setze sie in den darunterliegenden Deklarationen ein
+#declare result_DreiPunkteZylinder_px = 0;
+#declare result_DreiPunkteZylinder_py = -150;
+#declare result_DreiPunkteZylinder_r = 300;
+
+#end
+
+#macro zeichneZylinder(px, py, r, w)
+//Extrudiert einen Kreis entlang der z-Axis zu einem Zylinder
+//INPUT:
+//       px, py, r ... Mitte und Radius des Zylinders
+//       w ... Tiefe des Zylinders
+cone
+{
+    <px, py, -w/2>, r
+    <px, py, w/2>, r
+}
+#end
+

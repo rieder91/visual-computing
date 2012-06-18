@@ -1,0 +1,126 @@
+#macro TuerQ(b, h, shape)
+//INPUT://       b - Breite
+//       h - Hoehe
+//       shape = 1 -> rechteckig
+//       shape = 2 -> gewoelbt
+
+#local TuerTiefe = 0.20; // Tiefe des Rahmens
+#local TuerRahmen = 0.15; //Breite des Rahmens
+#local TuerBlatt = 0.10; // Tiefe des Tuerblatts
+#declare MinTuer = TuerRahmen*3; // minmimale moegliche Tuergroesse
+
+//Test von Inputparametern
+#if (b >= MinTuer & h >= MinTuer & (shape = 1 | shape = 2))
+    #if (shape = 1)
+        union
+        {
+            // Rahmen
+            difference
+            {
+                box
+                {
+                    //TODO: Die richtigen Werte einsetzen!
+                    <-1, 0, -1>
+                    <1, 1, 1>
+                }
+                box
+                {
+                    //TODO: Die richtigen Werte einsetzen!
+                    <-0.8, 0, -0.8>
+                    <0.8, 0.8, 0.8>
+                }
+            }
+
+            // Tuerblatt
+            box
+            {
+                    //TODO: Die richtigen Werte einsetzen!
+                    <-0.8, 0, -0.8>
+                    <0.8, 0.8, 0.8>
+            }
+            pigment {color rgb <0.667, 0.502, 0.478>}
+        }
+    #else
+        // TopArc Rahmen
+        #declare TopArc = difference
+        {
+            cylinder
+            {
+                <0, h, -TuerTiefe/2>,
+                <0, h,  TuerTiefe/2>,
+                b/2
+            }
+            cylinder
+            {
+                <0, h, -TuerTiefe>,
+                <0, h,  TuerTiefe>,
+                b/2 - TuerRahmen
+            }
+            box
+            {
+                <-b/2, 0, -TuerTiefe>
+                < b/2, h,  TuerTiefe>
+            }
+        }
+
+        // TopArc Blatt
+        #declare TopArcBlatt=
+        difference
+        {
+            cylinder
+            {
+                <0, h, -TuerBlatt/2>,
+                <0, h,  TuerBlatt/2>,
+                b/2 - TuerRahmen
+            }
+            box
+            {
+                <-b/2, 0, -TuerTiefe>
+                < b/2, h,  TuerTiefe>
+            }
+        }
+
+        union
+        {
+            // Rahmen
+            object {TopArc}
+
+            difference
+            {
+                box
+                {
+                    //TODO: Die richtigen Werte einsetzen!
+                    <-1, 0, -1>
+                    <1, 1, 1>
+                }
+                box
+                {
+                    //TODO: Die richtigen Werte einsetzen!
+                    <-0.8, 0, -0.8>
+                    <0.8, 0.8, 0.8>
+                }
+            }
+
+            // Tuerblatt
+            box
+            {
+                    //TODO: Die richtigen Werte einsetzen!
+                    <-0.8, 0, -0.8>
+                    <0.8, 0.8, 0.8>
+            }
+
+            object {TopArcBlatt}
+            pigment {color rgb <0.667, 0.502, 0.478>}
+        }
+    #end
+#else
+    //Error marker zeichnen
+    box
+    {
+        <-b/2, 0, -TuerTiefe/2>
+        < b/2, h,  TuerTiefe/2>
+        pigment {color rgb <1 0 0>}
+    }
+    #end
+#end
+
