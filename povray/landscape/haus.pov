@@ -1,3 +1,16 @@
+
+
+
+
+/* // NOTES //    to be removed
+
+   Beim Zaunaufsatz steht, es soll mittig aufgesetzt werden, jedoch ist es im demobild auch nicht so, da geht es auch nur nach auﬂen
+
+*/                 
+
+
+
+
 #declare HOUSE = true;
 
 #include "math.inc"
