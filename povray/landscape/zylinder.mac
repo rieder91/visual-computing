@@ -1,3 +1,5 @@
+#include "Math.inc"
+
 #macro DreiPunkteZylinder(h, P, w, rOffset)
 //Berechnet aus 3 Punkten deren gemeinsamen Kreis und zeichnet ihn als einen Zylinder
 
@@ -11,17 +13,39 @@
 //       pr     ... Radius des Kreises
 
 
-// TODO: Berechne den dritten Punkt 'M' des Kreises
+// Länge der Kreissehne
+#declare s = sqrt(P.x*P.x + P.y*P.y);
 
-// TODO: Berechne aus den drei Punkten O = (0,0), P und M das Zentrum und den Radius des Kreises.
-  //       Hint: Schneide die Mittelsenkrechte der zwei geraden OM und MP.
+//#declare P = <P.x / s, P.y / s, 0>;
 
-// TODO: Zeichne einen Zylinder mit dem zeichneZylinder Makro
+// Winkel um den der Mittelpunkt verschoben werden muss
+#declare alph = VAngleD(<1, 0, 0>, P);
+
+// Radius
+#declare r = (4*h*h + s*s) / 8*h;
+
+
+#declare Center = <s/2, h-r, 0>;
+#declare CenterN = <Center.x * cos(alph) - Center.y*sin(alph), Center.x*sin(alph) + Center.y*cos(alph), 0>;
+
+/*
+#declare M = <s/2, h, 0>;
+#declare MN = <M.x * cos(alph) - M.y*sin(alph), M.x*sin(alph) + M.y*cos(alph), 0>;
+*/
+
+// Lösungen
+#declare px = CenterN.x;
+#declare py = CenterN.y;
+#declare pr = r + rOffset;
+
+// Zeichnen des Zylinders
+zeichneZylinder(px, py, pr, w)
+
 
 // TODO: Berechne die Ausgabewerte und setze sie in den darunterliegenden Deklarationen ein
-#declare result_DreiPunkteZylinder_px = 0;
-#declare result_DreiPunkteZylinder_py = -150;
-#declare result_DreiPunkteZylinder_r = 300;
+#declare result_DreiPunkteZylinder_px = px;
+#declare result_DreiPunkteZylinder_py = py;
+#declare result_DreiPunkteZylinder_r = pr;
 
 #end
 
