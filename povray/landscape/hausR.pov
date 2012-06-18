@@ -24,11 +24,38 @@ union
     // BASIS
     // TODO: Es ist die Hausbasis mit Ausmasse sx x sz zu zeichnen!
     //       Die BasisHoehe ist aus der Datei "hausInit.inc" zu entnehmen.
+    
 
     // ECKPFOSTEN
     // TODO: An jedem Hauseck ist jeweils ein HausPfosten zu stellen.
     //       Die notwendigen Parameter sind in der Datei "hausInit.inc" zu finden.
-
+    
+    // Pfosten Objekt deklarieren
+    #declare pfostenObj = box {
+        <0,0,0>
+        <PfostenBreite,PfostenHoehe,PfostenBreite>    
+    } 
+    
+    // Vier Pfosten erstellen und an die Ecken des Hauses verschieben
+    union {
+        object { pfostenObj 
+            translate < Hx - PfostenBreite/2.0, 0, Hz - PfostenBreite/2.0> 
+        }
+        object { pfostenObj
+            translate < Hx - PfostenBreite/2.0, 0, Hz - PfostenBreite/2.0> 
+            translate <-HausSX,0,>
+        }
+        object { pfostenObj
+            translate < Hx - PfostenBreite/2.0, 0, Hz - PfostenBreite/2.0>
+            translate <0,0,- HausSZ>
+        }
+        object { pfostenObj
+            translate < Hx - PfostenBreite/2.0, 0, Hz - PfostenBreite/2.0>  
+            translate <-HausSX,0,-HausSZ>
+        }
+        translate <0,BasisHoehe,0>
+    }
+     
     // WAENDE
 
     // TODO: Hier sind die Waende zu erstellen und alle Oeffnungen fuer Fenster und Tuer auszuschneiden.
@@ -45,6 +72,9 @@ union
     // AUSBAUGEGENSTAENDE
 
     // TODO: Hier sind die Tuer und die Fenster in die dafuer ausgeschnittenen Oeffnungen einzusetzen.
+    
+    TuerQ(100, 500, 1)
+    
 
     // DACH
 

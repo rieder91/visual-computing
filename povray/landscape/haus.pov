@@ -22,14 +22,21 @@
         //       Falls der Zaun eine Hoehe von weniger als 1.5 hat, soll er einen Aufsatz
         //       bekommen, der so hoch ist wie der Zaun breit ist, eine Breite von 0.4 hat,
         //       und mittig auf dem Zaun sitzt.
-
+                         
+        box {
+            <Hx - HausSX,Hy,Hz>
+            <Hx - HofSX, Hy + ZaunHoehe, Hz - ZaunBreite>
+            translate <ZaunBreite/2.0,0,0>
+        }                 
+                         
+                         
         texture {T_Grnt2}
     }
 
     union
     {
-        // TODO: Hier soll anstatt union das HausR Makro aufgerufen werden.
-        union { }
+        // TODO: Hier soll anstatt union das HausR Makro aufgerufen werden.  
+        HausR(sx, sz)
 
         #if (fence = 1)
             union
@@ -60,7 +67,7 @@
     camera
     {
         //orthographic
-        location <-10, 5, -15>
+        location <-10, 10, -15>
         look_at <0, 0, 0>
     }
     light_source {<30, 100, 0> color Gray50 }
@@ -69,6 +76,6 @@
     light_source {<-10, 40, -100> color Gray50 }
     light_source {<-10, 40, 100> color Gray50 }
 
-    object { Haus(8, 10.2, 1, 1) }
+    object { Haus(10, 8, 1, 1) }
 
 #end

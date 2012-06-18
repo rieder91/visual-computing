@@ -1,5 +1,6 @@
 #macro TuerQ(b, h, shape)
-//INPUT://       b - Breite
+//INPUT:
+//       b - Breite
 //       h - Hoehe
 //       shape = 1 -> rechteckig
 //       shape = 2 -> gewoelbt

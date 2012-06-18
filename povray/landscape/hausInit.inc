@@ -1,45 +1,65 @@
 #macro HausInit(sx, sz, style)    
 
-    //TODO Setze Stilabhaengige Konstanten
+// sz
+// sy
+// style: =0 
+//        =1 
 
-    //Folgende Variablen sind zu deklarieren:
-    //FensterBreite
-    //FensterHohe (bei gewoelbten Fenstern nur vom rechteckigen Teil. Der Halbkreis als oberer Abschluss addiert noch die halbe Fensterbreite zu der GesamtFensterhoehe.)
-    //FensterBasisHohe (Abstand von der Basisoberkante bis zur Fensterbank)
-    //FensterAbstand (Breite des Wandstuecks zwischen zwei Fenstern)
-    //FensterSprAnz (ein boolscher Wert, der bestimmt, ob die Fenster eher viele oder weinige Sprossen haben)
-    //FensterShape (ein boolscher Wert, der bestimmt, ob das Fenster rechtecking oder gewoelbt ist)
-    //FensterStil (ein boolscher Wert, der bestimmt, ob das Fenster dekorative Elemente (nach freier Wahl) hat oder nicht)
-    //TuerStil (ein boolscher Wert, der bestimmt, ob die Tuer rechtecking oder gewoelbt ist)
-    //PfostenHoehe (dieser Wert haengt von der Haushoehe und der Hausbasishoehe ab)
-    //DachFirstHoehe (vertikaler Abstand von der Traufe(Wandoberkante) bis zum First(Dachspitze))
-    //HausDekoration (ein boolscher Wert, der bestimmt, ob das Haus dekorative Elemente (nach freier Wahl) hat oder nicht)
-    #declare HausDekoration = 0;
-    //GiebelDach (ein boolscher Wert, der bestimmt, ob das Haus ein Giebeldach(2 Seiten geneigt, 2 Seiten vertikal) oder ein Walmdach(alle Seiten geneigt) hat)
-    //ZaunHoehe
-
-    // Stilunabhaengige Konstanten
-
-    //TODO Setze die Hofgroesse hier
-    #declare BasisHoehe = 0.3; //inkludiert in der Haushoehe (d.h. der Hausboden ist 0.3 Einheiten hoeher als der Hof)
-    #declare ZaunBreite = 0.2;
-    #declare HofSX = 6.0; // unbebaute Hofbreite
-    #declare HofSZ = 5.0; // unbebaute Hoftiefe
-    #declare PfostenBreite = 0.3; //ein Pfosten ist eine quadratische Stuetze, die an jedem Eck des Hauses steht
-
-    #declare DachKranzHoehe = 0.3; // Der vertikale Teil des Dachs bevor die Neigung zum First hin anfaengt
-    #declare DachUeberstand = 0.5; // Auskragung des Dachs ueber die Hauswaende hinaus
+    // mit '*' markierte Einträge kommen von der Angabe
+    
+    #declare BasisHoehe = 0.3;          // inkludiert in der Haushoehe (d.h. der Hausboden ist 0.3 Einheiten hoeher als der Hof)
+    
+    #declare HausHofAbstandX = 5;       //*Abstand vom Haus zum Hof X 
+    #declare HausHofAbstandZ = 6;       //*Abstand vom Haus zum Hof X  
+    
+    #declare HofSX =                    // unbebaute Hofbreite 
+        sx + HausHofAbstandX;
+    #declare HofSZ =                    // unbebaute Hoftiefe  
+        sz + HausHofAbstandZ;  
+    
+    #declare ZaunBreite = 0.2;          // ZaunBreite
+    #declare ZaunHoehe = 1.5;           //*ZaunHoehe
+                                        
+    #declare HausSX = sx;               // Breite des Hauses
+    #declare HausSZ = sz;               // Tiefe des Hauses
+    #declare HausHoehe = 4;             //*Hoehe des Hauses/der Wand    
+    #declare HausDekoration = true;     // HausDekoration (ein boolscher Wert, der bestimmt, ob das Haus dekorative Elemente (nach freier Wahl) (true) hat oder nicht (false))  
+    
+    #declare WandDicke = 0.2;           //Achtung - die Pfosten sind breiter und das sollte im fertigen Haus sichtbar sein!
+    #declare PfostenHoehe =             // PfostenHoehe (dieser Wert haengt von der Haushoehe und der Hausbasishoehe ab)
+        BasisHoehe + HausHoehe;         
+    #declare PfostenBreite = 0.3;       // ein Pfosten ist eine quadratische Stuetze, die an jedem Eck des Hauses steht
+    
+    #declare DachFirstHoehe = 0.0;      //*DachFirstHoehe (vertikaler Abstand von der Traufe(Wandoberkante) bis zum First(Dachspitze))   
+    #declare DachKranzHoehe = 0.3;      // Der vertikale Teil des Dachs bevor die Neigung zum First hin anfaengt
+    #declare DachUeberstand = 0.5;      // Auskragung des Dachs ueber die Hauswaende hinaus     
     #//TODO Berechne die Dachwinkel hier, falls sie notwendig sein sollten 
-
-    #declare WandDicke = 0.2; //Achtung - die Pfosten sind breiter und das sollte im fertigen Haus sichtbar sein!
-
-    #declare TurBreite = 1.2;
-    #declare TurHohe = 2.5; // nur vom rechteckigen Teil, falls die Tuer gewoelbt ist
-
+    #declare GiebelDach = false;        //*GiebelDach (ein boolscher Wert, der bestimmt, ob das Haus ein Giebeldach(2 Seiten geneigt, 2 Seiten vertikal) (true) oder ein Walmdach(alle Seiten geneigt) (false) hat)
+                    
+    #declare FensterBreite = 1.2;       //*FensterBreite  
+    #declare FensterHoehe = 1.5;        //*FensterHohe (bei gewoelbten Fenstern nur vom rechteckigen Teil. Der Halbkreis als oberer Abschluss addiert noch die halbe Fensterbreite zu der GesamtFensterhoehe.)                         
+    #declare FensterBasisHoehe = 1.0;   //*FensterBasisHohe (Abstand von der Basisoberkante bis zur Fensterbank)
+    #declare FensterAbstand = 0.8;      //*FensterAbstand (Breite des Wandstuecks zwischen zwei Fenstern)
+    #declare FensterSprAnz = true;      // FensterSprAnz (ein boolscher Wert, der bestimmt, ob die Fenster eher viele (true) oder weinige Sprossen (false) haben)
+    #declare FensterSprAnzWenigeB = 1;  // FensterSprAnz Wenige: Anzahl der Sprossen bei wenigen in der Breite
+    #declare FensterSprAnzWenigeH = 1;  // FensterSprAnz Wenige: Anzahl der Sprossen bei wenigen in der Hoehe
+    #declare FensterSprAnzVieleB = 3;   // FensterSprAnz Viele: Anzahl der Sprossen bei vielen in der Hoehe      
+    #declare FensterSprAnzVieleH = 5;   // FensterSprAnz Viele: Anzahl der Sprossen bei vielen in der Hoehe
+    #declare FensterShape = true;       //*FensterShape (ein boolscher Wert, der bestimmt, ob das Fenster rechtecking (true) oder gewoelbt ist (false))
+    #declare FensterStil = true;        //*FensterStil (ein boolscher Wert, der bestimmt, ob das Fenster dekorative Elemente (nach freier Wahl) (true) hat oder nicht (false))
+ 
+    #declare TuerStil = true;           // TuerStil (ein boolscher Wert, der bestimmt, ob die Tuer rechtecking (true) oder gewoelbt (false) ist)
+    #declare TurBreite = 1.2;           // TuerBreite
+    #declare TurHoehe = 2.5;            // nur vom rechteckigen Teil, falls die Tuer gewoelbt ist
+    
     #declare DekorUeberstand = 0.25;
     #declare DekorHoehe = 2.00;
     #declare DekorStaerke = 0.05;
-    #declare DekorEinschnitt = 1.25;
+    #declare DekorEinschnitt = 1.25; 
+    
+    #declare Hx = HausSX - HausSX/2.0;  // Absolute Eckwerte des Hauses für X
+    #declare Hy = 0.0;                  // Absolute Eckwerte des Hauses für Y
+    #declare Hz = HausSZ - HausSZ/2.0;  // Absolute Eckwerte des Hauses für Z
 
 #end
 
