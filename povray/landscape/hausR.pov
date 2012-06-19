@@ -113,7 +113,7 @@ union
             <Hx - HausSX - DachUeberstand, Hy + DachKranzHoehe,Hz - HausSZ - DachUeberstand>
         }
         
-        #if (GiebelDach | true)
+        #if (GiebelDach | false)
         // Giebeldach(2 Seiten geneigt, 2 Seiten vertikal)
          
             object {    
@@ -130,8 +130,34 @@ union
             
         #else
         // Walmdach(alle Seiten geneigt)
-        
-              
+            
+            intersection {
+            
+                object {    
+                    prism {
+                        0, HausSZ + 2*DachUeberstand, 4
+                        <0, 0>,
+                        <0 - HausSX - 2*DachUeberstand, 0>
+                        <(0 - HausSX - 2*DachUeberstand) / 2.0, DachFirstHoehe>
+                        <0, 0>
+                    }
+                    rotate <-90,0,0>
+                    translate <Hx+DachUeberstand,DachKranzHoehe,Hz+DachUeberstand>
+                }
+                
+                object {    
+                    prism {
+                        0, HausSX + 2*DachUeberstand, 4
+                        <0, 0>,
+                        <0 - HausSZ - 2*DachUeberstand, 0>
+                        <(0 - HausSZ - 2*DachUeberstand) / 2.0, DachFirstHoehe>
+                        <0, 0>
+                    }
+                    rotate <-90,90,0>
+                    translate <Hx+DachUeberstand,DachKranzHoehe,-Hz-DachUeberstand>
+                }
+            
+            }     
               
         #end
     }

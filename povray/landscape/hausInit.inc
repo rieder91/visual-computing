@@ -34,7 +34,7 @@
     #declare DachFirstHoehe = 3.2;      //*DachFirstHoehe (vertikaler Abstand von der Traufe(Wandoberkante) bis zum First(Dachspitze))   
     #declare DachKranzHoehe = 0.3;      // Der vertikale Teil des Dachs bevor die Neigung zum First hin anfaengt
     #declare DachUeberstand = 0.5;      // Auskragung des Dachs ueber die Hauswaende hinaus     
-    #//TODO Berechne die Dachwinkel hier, falls sie notwendig sein sollten 
+    #                                   // TODO Berechne die Dachwinkel hier, falls sie notwendig sein sollten
     #declare GiebelDach = false;        //*GiebelDach (ein boolscher Wert, der bestimmt, ob das Haus ein Giebeldach(2 Seiten geneigt, 2 Seiten vertikal) (true) oder ein Walmdach(alle Seiten geneigt) (false) hat)
                     
     #declare FensterBreite = 1.2;       //*FensterBreite  
