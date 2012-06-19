@@ -87,32 +87,30 @@ union
     //       von der Frontecke entfernt ist.
     #declare waende = union {        
         
-        // Eintrücken, damit man sehen kann, das die Pfosten dicker sind als die Waende
-        #declare intend = (PfostenBreite - WandDicke)/2.0*2;
     
         // Wand hinten                 
         box {
             <Hx, Hy, Hz>
             <Hx - HausSX, Hy + HausHoehe, Hz - WandDicke>
-            translate <0,0,-intend>
+            translate <0,0,-WandIntend>
         }
         // Wand links
         box {
             <Hx - HausSX, Hy, Hz>
             <Hx - HausSX + WandDicke, Hy + HausHoehe, Hz - HausSZ> 
-            translate <intend,0,0>
+            translate <WandIntend,0,0>
         }
         // Wand vorne
         box {
             <Hx,Hy,Hz - HausSZ + WandDicke>
             <Hx - HausSX, Hy + HausHoehe, Hz - HausSZ>
-            translate <0,0,intend>
+            translate <0,0,WandIntend>
         }
         // Wand rechts
         box {
             <Hx, Hy, Hz>
             <Hx - WandDicke, Hy + HausHoehe, Hz - HausSZ> 
-            translate <-intend,0,>
+            translate <-WandIntend,0,>
         }
         translate <0,BasisHoehe,0>
     }
@@ -169,7 +167,7 @@ union
       
     // Tuer einsetzen
     object { TuerQ(TuerBreite, TuerHoehe, TuerStil)
-        translate <HausSX/2.0-TuerMauerAbstand-TuerBreite/2.0, BasisHoehe, HausSZ/2.0 - HausSZ + TuerTiefe/2>
+        translate <HausSX/2.0-TuerMauerAbstand-TuerBreite/2.0, BasisHoehe, HausSZ/2.0 - HausSZ + TuerTiefe/2 + WandIntend>
     }
       
      
@@ -181,14 +179,9 @@ union
     
     // Frontfenster
     #declare naechsterPlatz = Hx - TuerMauerAbstand - TuerBreite - ((TuerBreite/2.0) + (FensterBreite/2.0));   
-    
-    //sphere {<Hx-HausSX, BasisHoehe+FensterBasisHoehe,  HausSZ/2.0 - HausSZ>, 0.1 pigment {color rgb <0.0 0 1.0>} }
-    //sphere {<naechsterPlatz, BasisHoehe+FensterBasisHoehe,  HausSZ/2.0 - HausSZ>, 0.1 pigment {color rgb <1.0 0 0>} } 
-        
-    #while ((Hx-HausSX) < naechsterPlatz - (FensterBreite + FensterAbstand))
-        
-        //sphere {<naechsterPlatz, BasisHoehe+FensterBasisHoehe,  HausSZ/2.0 - HausSZ>, 0.1 pigment {color rgb <0 1 0>} }
          
+    #while ((Hx-HausSX) < naechsterPlatz - (FensterBreite + FensterAbstand))
+          
         // Fenster ausschneiden
         #declare waende = difference {
             object {waende}
@@ -229,7 +222,7 @@ union
         
         // Fenster einfuegen
         object { FensterQ(FensterBreite, FensterHoehe, FensterSprAnz, FensterShape, FensterStil) 
-                translate <naechsterPlatz-FensterBreite/2.0, BasisHoehe+FensterBasisHoehe, HausSZ/2.0 - HausSZ + FensterTiefe/2>
+            translate <naechsterPlatz-FensterBreite/2.0, BasisHoehe+FensterBasisHoehe, HausSZ/2.0 - HausSZ + FensterTiefe/2 + WandIntend>
         }
          
          
@@ -240,13 +233,8 @@ union
     
     // Seiteliche Fenster
     #declare naechsterPlatz = Hz - HausSZ + FensterBreite + FensterAbstand + FensterBreite;   
-    
-    //sphere {<Hx-HausSX, BasisHoehe+FensterBasisHoehe,  HausSZ/2.0 - HausSZ>, 0.1 pigment {color rgb <0.0 0 1.0>} }
-    //sphere {<HausSX/2.0 - HausSX, BasisHoehe+FensterBasisHoehe,  naechsterPlatz>, 0.1 pigment {color rgb <1.0 0 0>} } 
-        
+         
     #while (Hz > naechsterPlatz)
-        
-        //sphere {<HausSX/2.0 - HausSX, BasisHoehe+FensterBasisHoehe,  naechsterPlatz>, 0.1 pigment {color rgb <0 1 0>} }
          
         // Fenster ausschneiden
         #declare waende = difference {
@@ -291,7 +279,7 @@ union
         // Fenster einfuegen
         object { FensterQ(FensterBreite, FensterHoehe, FensterSprAnz, FensterShape, FensterStil)
             rotate <0,90,0> 
-            translate <HausSX/2.0 - HausSX + FensterTiefe/2, BasisHoehe+FensterBasisHoehe, naechsterPlatz-FensterBreite/2.0>
+            translate <HausSX/2.0 - HausSX + FensterTiefe/2 + WandIntend, BasisHoehe+FensterBasisHoehe, naechsterPlatz-FensterBreite/2.0>
         }
          
          
@@ -319,7 +307,7 @@ union
             <Hx - HausSX - DachUeberstand, Hy + DachKranzHoehe,Hz - HausSZ - DachUeberstand>
         }
         
-        #if (GiebelDach | false)
+        #if (GiebelDach = 1)
         // Giebeldach(2 Seiten geneigt, 2 Seiten vertikal)
          
             object {    
@@ -369,7 +357,7 @@ union
     }
     
     // Dach erzeugen und nach oben schieben
-    object { dach translate<0,BasisHoehe + HausHoehe,0> } 
+    object { dach translate<0,BasisHoehe + PfostenHoehe,0> } 
      
      
     
@@ -420,7 +408,7 @@ union
         camera
         {
             //orthographic
-            location <-5, 1, -6>
+            location <-8, 4.3, -8>
             look_at <0, 0, 0>
         }
 
