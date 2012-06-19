@@ -6,13 +6,14 @@ _Technical University Vienna, 2012_
  * RULI Chain Codes
  * Image Processing
  * POV-Ray: Chess
+ * POV-Ray Landscape
+	* Bridge
+	* House
 
 ### Work in Progress
  * POV-Ray: Landscape
-   * Trees
- 	* Houses
- 	* Bridge
- 	* Final Composition
+	* Trees
+	* Final Composition
 
 
 ### Collaborators:
