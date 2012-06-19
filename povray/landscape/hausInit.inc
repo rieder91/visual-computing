@@ -49,9 +49,10 @@
     #declare FensterShape = true;       //*FensterShape (ein boolscher Wert, der bestimmt, ob das Fenster rechtecking (true) oder gewoelbt ist (false))
     #declare FensterStil = true;        //*FensterStil (ein boolscher Wert, der bestimmt, ob das Fenster dekorative Elemente (nach freier Wahl) (true) hat oder nicht (false))
  
-    #declare TuerStil = true;           // TuerStil (ein boolscher Wert, der bestimmt, ob die Tuer rechtecking (true) oder gewoelbt (false) ist)
-    #declare TurBreite = 1.2;           // TuerBreite
-    #declare TurHoehe = 2.5;            // nur vom rechteckigen Teil, falls die Tuer gewoelbt ist
+    #declare TueerStil = true;          // TuerStil (ein boolscher Wert, der bestimmt, ob die Tuer rechtecking (true) oder gewoelbt (false) ist)
+    #declare TuerBreite = 1.2;          // TuerBreite
+    #declare TuerHoehe = 2.5;           // nur vom rechteckigen Teil, falls die Tuer gewoelbt ist 
+    #declare TuerMauerAbstand = TuerBreite / 2.0;        // Abstand von der Mauer zur Tuer
     
     #declare DekorUeberstand = 0.25;
     #declare DekorHoehe = 2.00;

@@ -21,14 +21,14 @@
                 box
                 {
                     //TODO: Die richtigen Werte einsetzen!
-                    <-1, 0, -1>
-                    <1, 1, 1>
+                    <(-b/2.0), 0           , -TuerTiefe/2.0>
+                    <(+b/2.0), h+TuerRahmen, +TuerTiefe/2.0>
                 }
                 box
                 {
                     //TODO: Die richtigen Werte einsetzen!
-                    <-0.8, 0, -0.8>
-                    <0.8, 0.8, 0.8>
+                    <-b/2.0+TuerRahmen, -1, -TuerTiefe/2.0-1>
+                    <+b/2.0-TuerRahmen, h, +TuerTiefe/2.0+1>
                 }
             }
 
@@ -36,8 +36,8 @@
             box
             {
                     //TODO: Die richtigen Werte einsetzen!
-                    <-0.8, 0, -0.8>
-                    <0.8, 0.8, 0.8>
+                    <-b/2.0, 0, -TuerBlatt/2.0>
+                    <+b/2.0, h, -TuerBlatt/2.0>
             }
             pigment {color rgb <0.667, 0.502, 0.478>}
         }
@@ -91,14 +91,14 @@
                 box
                 {
                     //TODO: Die richtigen Werte einsetzen!
-                    <-1, 0, -1>
-                    <1, 1, 1>
+                    <(-b/2.0), 0           , -TuerTiefe/2.0>
+                    <(+b/2.0), h+TuerRahmen, +TuerTiefe/2.0>
                 }
                 box
                 {
                     //TODO: Die richtigen Werte einsetzen!
-                    <-0.8, 0, -0.8>
-                    <0.8, 0.8, 0.8>
+                    <-b/2.0+TuerRahmen, -1, -TuerTiefe/2.0-1>
+                    <+b/2.0-TuerRahmen, h+TuerRahmen+1, +TuerTiefe/2.0+1>
                 }
             }
 
@@ -106,8 +106,8 @@
             box
             {
                     //TODO: Die richtigen Werte einsetzen!
-                    <-0.8, 0, -0.8>
-                    <0.8, 0.8, 0.8>
+                    <-b/2.0, 0, -TuerBlatt/2.0>
+                    <+b/2.0, h, -TuerBlatt/2.0>
             }
 
             object {TopArcBlatt}
@@ -125,3 +125,21 @@
     #end
 #end
 
+#ifndef (TERRAIN)
+    #include "colors.inc"
+    background { White }
+    camera
+    {
+        //orthographic
+        location <-8, 10, -8>
+        look_at <0, 3, 0>
+    }
+    light_source {<30, 100, 0> color Gray50 }
+    light_source {<300, 10, -100> color Gray50 }
+    light_source {<-30, 50, -30> color Gray50 }
+    light_source {<-10, 40, -100> color Gray50 }
+    light_source {<-10, 40, 100> color Gray50 }
+
+    object { TuerQ(3, 6, 2) }
+
+#end

@@ -4,7 +4,9 @@
 
 /* // NOTES //    to be removed
 
-   Beim Zaunaufsatz steht, es soll mittig aufgesetzt werden, jedoch ist es im demobild auch nicht so, da geht es auch nur nach außen
+   - Beim Zaunaufsatz steht, es soll mittig aufgesetzt werden, jedoch ist es im demobild auch nicht so, da geht es auch nur nach außen
+   - Wo genau sitzt das dach auf?
+   - sitzt die dekoration zu weit oben? bzw. warum ist im pfosten die basis eingerechnet und bei der dekoration nochmal?
 
 */                 
 
@@ -60,7 +62,7 @@
             }
                 
                 
-            // Aufsätze falls nötig  
+            // Aufsätze falls nötig (ZaunHoehe < 1.5)
             #if (ZaunHoehe < 1.5)
                     
                 #declare ZaunAufsatzBreite = 0.4;
@@ -101,7 +103,18 @@
         #if (fence = 1)
             union
             {
-                object {Zaun}
+                
+                // Eingang herausstechen
+                difference {
+                    
+                    object {Zaun}
+                    box {
+                        <Hx-TuerMauerAbstand            , Hy-1                           , Hz-GesSZ+ZaunBreite+1>
+                        <Hx-TuerMauerAbstand-TuerBreite , Hy + ZaunHoehe + ZaunBreite + 1, Hz-GesSZ-ZaunBreite-ZaunAufsatzBreite-1>   
+                    }
+                }
+                
+                
                 // Zeichne den Hof
                 box
                 {
