@@ -125,6 +125,7 @@
     #end
 #end
 
+/*
 #ifndef (TERRAIN)
     #include "colors.inc"
     background { White }
@@ -143,3 +144,4 @@
     object { TuerQ(3, 6, 2) }
 
 #end
+*/

@@ -20,15 +20,27 @@
 
 union
 {
-
-    // BASIS
+      
+      
+      
+    /***
+     B A S I S
+    
+    ***/
+    
     // TODO: Es ist die Hausbasis mit Ausmasse sx x sz zu zeichnen!
     //       Die BasisHoehe ist aus der Datei "hausInit.inc" zu entnehmen.
     box {
         <Hx, Hy, Hz>
         <Hx - HausSX, Hy + BasisHoehe, Hz - HausSZ>
     }
-
+    
+    
+    /***
+     E C K P F O S T E N
+    
+    ***/
+    
     // ECKPFOSTEN
     // TODO: An jedem Hauseck ist jeweils ein HausPfosten zu stellen.
     //       Die notwendigen Parameter sind in der Datei "hausInit.inc" zu finden.
@@ -57,7 +69,11 @@ union
         translate <0,BasisHoehe,0>
     }
      
-    // WAENDE
+    
+    /***
+     W A E N D E
+    
+    ***/
 
     // TODO: Hier sind die Waende zu erstellen und alle Oeffnungen fuer Fenster und Tuer auszuschneiden.
     //       Die Tuer befindet sich auf der Fronseite (parallel zu der x-Achse, dem Hof zugewandt), eine
@@ -69,7 +85,7 @@ union
     //       Die andere dem Hof zugewandte Seite (parallel zu der z-Achse) ist gefuellt mit Fenstern, wobei das
     //       erste Fenster (gezaehlt von der Frontseite) im Abstand von einer Fensterbreite und einem FensterAbstand
     //       von der Frontecke entfernt ist.
-    union {        
+    #declare waende = union {        
         
         // Eintrücken, damit man sehen kann, das die Pfosten dicker sind als die Waende
         #declare intend = (PfostenBreite - WandDicke)/2.0;
@@ -104,12 +120,195 @@ union
     
     // AUSBAUGEGENSTAENDE
 
-    // TODO: Hier sind die Tuer und die Fenster in die dafuer ausgeschnittenen Oeffnungen einzusetzen.
     
-    TuerQ(100, 500, 1)
+        
     
+    /***
+     T U E R
+    
+    ***/  
+    
+    // TODO: Hier sind die Tuer und die Fenster in die dafuer ausgeschnittenen Oeffnungen einzusetzen
+    
+    // Tuer ausstanzen
+    #declare waende = difference {
+        object {waende}
+                  
+        #local TuerTiefe = 0.20;  // Tiefe des Rahmens
+        #local TuerRahmen = 0.15; // Breite des Rahmens           
+                     
+        #if (TuerStil = 1)
+            box {
+                <(-TuerBreite/2.0), 0                   , -TuerTiefe/2.0-WandDicke>
+                <(+TuerBreite/2.0), TuerHoehe+TuerRahmen, +TuerTiefe/2.0+WandDicke>
+                translate <HausSX/2.0-TuerMauerAbstand-TuerBreite/2.0, BasisHoehe, HausSZ/2.0 - HausSZ>
+            }
+        #else 
+            
+            union
+            {
+                // Rahmen
+                cylinder
+                {
+                    <0, TuerHoehe, -TuerTiefe/2-WandDicke>,
+                    <0, TuerHoehe,  TuerTiefe/2+WandDicke>,
+                    TuerBreite/2
+                }
+    
+                box
+                {
+                    <(-TuerBreite/2.0), 0                   , -TuerTiefe/2.0-WandDicke>
+                    <(+TuerBreite/2.0), TuerHoehe+TuerRahmen, +TuerTiefe/2.0+WandDicke>
+                }
+                translate <HausSX/2.0-TuerMauerAbstand-TuerBreite/2.0, BasisHoehe, HausSZ/2.0 - HausSZ>
+            }
+        
+        #end
+        
+    }
+      
+    // Tuer einsetzen
+    object { TuerQ(TuerBreite, TuerHoehe, TuerStil)
+        translate <HausSX/2.0-TuerMauerAbstand-TuerBreite/2.0, BasisHoehe, HausSZ/2.0 - HausSZ + TuerTiefe/2>
+    }
+      
+     
+     
+    /***
+     F E N S T E R
+    
+    ***/
+    
+    // Frontfenster
+    #declare naechsterPlatz = Hx - TuerMauerAbstand - TuerBreite - ((TuerBreite/2.0) + (FensterBreite/2.0));   
+    
+    //sphere {<Hx-HausSX, BasisHoehe+FensterBasisHoehe,  HausSZ/2.0 - HausSZ>, 0.1 pigment {color rgb <0.0 0 1.0>} }
+    //sphere {<naechsterPlatz, BasisHoehe+FensterBasisHoehe,  HausSZ/2.0 - HausSZ>, 0.1 pigment {color rgb <1.0 0 0>} } 
+        
+    #while ((Hx-HausSX) < naechsterPlatz - (FensterBreite + FensterAbstand))
+        //
+        sphere {<naechsterPlatz, BasisHoehe+FensterBasisHoehe,  HausSZ/2.0 - HausSZ>, 0.1 pigment {color rgb <0 1 0>} }
+         
+        // Fenster ausschneiden
+        #declare waende = difference {
+            object {waende}
+                      
+            #local FensterTiefe = 0.2;  // Tiefe des Rahmens
+            #local FensterRahmen = 0.1; // Breite des Rahmens           
+                         
+            #if (FensterShape = 1)
+                box {
+                    <(-FensterBreite/2.0), 0           , -FensterTiefe/2.0-WandDicke>
+                    <(+FensterBreite/2.0), FensterHoehe, +FensterTiefe/2.0+WandDicke>
+                    translate <naechsterPlatz-FensterBreite/2.0, BasisHoehe+FensterBasisHoehe, HausSZ/2.0 - HausSZ>
+                }
+            #else 
 
-    // DACH
+                union
+                {
+                    cylinder
+                    {
+                        <0, FensterHoehe, -FensterTiefe/2.0-WandDicke>,
+                        <0, FensterHoehe,  FensterTiefe/2.0+WandDicke>,
+                        FensterBreite/2
+                    }
+        
+                    box
+                    {
+                        <(-FensterBreite/2.0), 0           , -FensterTiefe/2.0-WandDicke-0.1>
+                        <(+FensterBreite/2.0), FensterHoehe, +FensterTiefe/2.0+WandDicke+0.1>
+                    }
+                    translate <naechsterPlatz-FensterBreite/2.0, BasisHoehe+FensterBasisHoehe, HausSZ/2.0 - HausSZ>
+                }
+            
+            #end
+            
+        }
+        
+        
+        
+        // Fenster einfuegen
+        object { FensterQ(FensterBreite, FensterHoehe, FensterSprAnz, FensterShape, FensterStil) 
+                translate <naechsterPlatz-FensterBreite/2.0, BasisHoehe+FensterBasisHoehe, HausSZ/2.0 - HausSZ + FensterTiefe/2>
+        }
+         
+         
+        #declare naechsterPlatz = naechsterPlatz - (FensterBreite + FensterAbstand); 
+         
+    #end
+    
+    
+    // Seiteliche Fenster
+    #declare naechsterPlatz = Hz - HausSZ + FensterBreite + FensterAbstand + FensterBreite;   
+    
+    sphere {<Hx-HausSX, BasisHoehe+FensterBasisHoehe,  HausSZ/2.0 - HausSZ>, 0.1 pigment {color rgb <0.0 0 1.0>} }
+    sphere {<HausSX/2.0 - HausSX, BasisHoehe+FensterBasisHoehe,  naechsterPlatz>, 0.1 pigment {color rgb <1.0 0 0>} } 
+        
+    #while (Hz > naechsterPlatz)
+        
+        sphere {<HausSX/2.0 - HausSX, BasisHoehe+FensterBasisHoehe,  naechsterPlatz>, 0.1 pigment {color rgb <0 1 0>} }
+         
+        // Fenster ausschneiden
+        #declare waende = difference {
+            object {waende}
+                      
+            #local FensterTiefe = 0.2;  // Tiefe des Rahmens
+            #local FensterRahmen = 0.1; // Breite des Rahmens           
+                         
+            #if (FensterShape = 1)
+                box {
+                    <(-FensterBreite/2.0), 0           , -FensterTiefe/2.0-WandDicke>
+                    <(+FensterBreite/2.0), FensterHoehe, +FensterTiefe/2.0+WandDicke>
+                    rotate <0,90,0> 
+                    translate <HausSX/2.0 - HausSX, BasisHoehe+FensterBasisHoehe, naechsterPlatz-FensterBreite/2.0>
+                }
+            #else 
+
+                union
+                {
+                    cylinder
+                    {
+                        <0, FensterHoehe, -FensterTiefe/2.0-WandDicke>,
+                        <0, FensterHoehe,  FensterTiefe/2.0+WandDicke>,
+                        FensterBreite/2
+                    }
+        
+                    box
+                    {
+                        <(-FensterBreite/2.0), 0           , -FensterTiefe/2.0-WandDicke-0.1>
+                        <(+FensterBreite/2.0), FensterHoehe, +FensterTiefe/2.0+WandDicke+0.1>
+                    }
+                    rotate <0,90,0> 
+                    translate <HausSX/2.0 - HausSX, BasisHoehe+FensterBasisHoehe, naechsterPlatz-FensterBreite/2.0>
+                }
+            
+            #end
+            
+        }
+        
+        
+        
+        // Fenster einfuegen
+        object { FensterQ(FensterBreite, FensterHoehe, FensterSprAnz, FensterShape, FensterStil)
+            rotate <0,90,0> 
+            translate <HausSZ/2.0 - HausSZ + FensterTiefe/2 +1, BasisHoehe+FensterBasisHoehe, naechsterPlatz-FensterBreite/2.0>
+        }
+         
+         
+        #declare naechsterPlatz = naechsterPlatz + (FensterBreite + FensterAbstand); 
+         
+    #end                          
+                              
+    
+    // Waende ausgeben
+    object {waende}
+    
+      
+      
+    /***
+     D A C H
+    
+    ***/
 
     // TODO: Hier ist das Dach zu zeichnen. Die Parameter sind in der Datei "hausInit.inc" zu finden.
     //       Nicht vergessen, dass das Dach ueber die Grenzen der Hauswaende auskragt!   
@@ -171,7 +370,8 @@ union
     
     // Dach erzeugen und nach oben schieben
     object { dach translate<0,BasisHoehe + HausHoehe,0> } 
-    
+     
+     
     
     // DEKORATION
     #if (HausDekoration = 1)
@@ -220,7 +420,7 @@ union
         camera
         {
             //orthographic
-            location <-15, 10, -15>
+            location <-10, 4, -7>
             look_at <0, 0, 0>
         }
 

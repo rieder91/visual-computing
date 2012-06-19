@@ -7,7 +7,8 @@
    - Beim Zaunaufsatz steht, es soll mittig aufgesetzt werden, jedoch ist es im demobild auch nicht so, da geht es auch nur nach auﬂen
    - Wo genau sitzt das dach auf?
    - sitzt die dekoration zu weit oben? bzw. warum ist im pfosten die basis eingerechnet und bei der dekoration nochmal?
-
+   - Fehlermeldung ausschreiben fehlt noch
+   
 */                 
 
 
