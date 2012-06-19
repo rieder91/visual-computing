@@ -37,7 +37,7 @@
     #                                   // TODO Berechne die Dachwinkel hier, falls sie notwendig sein sollten
     #declare GiebelDach = 1;            //*GiebelDach (ein boolscher Wert, der bestimmt, ob das Haus ein Giebeldach(2 Seiten geneigt, 2 Seiten vertikal) (1) oder ein Walmdach(alle Seiten geneigt) (2) hat)
                     
-    #declare FensterBreite = 1.2;       //*FensterBreite  
+    #declare FensterBreite = 1.4;       //*FensterBreite  
     #declare FensterHoehe = 1.5;        //*FensterHohe (bei gewoelbten Fenstern nur vom rechteckigen Teil. Der Halbkreis als oberer Abschluss addiert noch die halbe Fensterbreite zu der GesamtFensterhoehe.)                         
     #declare FensterBasisHoehe = 1.0;   //*FensterBasisHohe (Abstand von der Basisoberkante bis zur Fensterbank)
     #declare FensterAbstand = 0.8;      //*FensterAbstand (Breite des Wandstuecks zwischen zwei Fenstern)

@@ -141,7 +141,7 @@
     camera
     {
         //orthographic
-        location <-10, 10, -20>
+        location <-15, 8, -15>
         look_at <0, 0, 0>
     }
     light_source {<30, 100, 0> color Gray50 }
