@@ -14,35 +14,22 @@
 
 
 // Länge der Kreissehne
-#declare s = sqrt(P.x*P.x + P.y*P.y);
-
-//#declare P = <P.x / s, P.y / s, 0>;
-
-// Winkel um den der Mittelpunkt verschoben werden muss
-#declare alph = VAngleD(<1, 0, 0>, P);
+#declare s1 = P.x;
 
 // Radius
-#declare r = (4*h*h + s*s) / 8*h;
+#declare r = (4*h*h + s1*s1) / 8*h;
 
-
-#declare Center = <s/2, h-r, 0>;
-#declare CenterN = <Center.x * cos(alph) - Center.y*sin(alph), Center.x*sin(alph) + Center.y*cos(alph), 0>;
-
-/*
-#declare M = <s/2, h, 0>;
-#declare MN = <M.x * cos(alph) - M.y*sin(alph), M.x*sin(alph) + M.y*cos(alph), 0>;
-*/
+// Mittelpunkt
+#declare Center = <s1, -r, 0>;
 
 // Lösungen
-#declare px = CenterN.x;
-#declare py = CenterN.y;
+#declare px = Center.x;
+#declare py = Center.y;
 #declare pr = r + rOffset;
 
 // Zeichnen des Zylinders
 zeichneZylinder(px, py, pr, w)
 
-
-// TODO: Berechne die Ausgabewerte und setze sie in den darunterliegenden Deklarationen ein
 #declare result_DreiPunkteZylinder_px = px;
 #declare result_DreiPunkteZylinder_py = py;
 #declare result_DreiPunkteZylinder_r = pr;
