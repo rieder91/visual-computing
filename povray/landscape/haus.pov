@@ -5,7 +5,6 @@
 /* // NOTES //    to be removed
 
    - Beim Zaunaufsatz steht, es soll mittig aufgesetzt werden, jedoch ist es im demobild auch nicht so, da geht es auch nur nach auﬂen
-   - Wo genau sitzt das dach auf?
   
 */                 
 
