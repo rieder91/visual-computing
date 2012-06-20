@@ -289,8 +289,12 @@ union
                               
     
     // Waende ausgeben
-    object {waende}
     
+    #if (WandStyle = 1)
+        object {waende texture { tex_HouseBrick }}
+    #else    
+        object {waende texture { tex_HousePlaster }}
+    #end
       
       
     /***
@@ -357,7 +361,7 @@ union
     }
     
     // Dach erzeugen und nach oben schieben
-    object { dach translate<0,BasisHoehe + PfostenHoehe,0> } 
+    object { dach texture { tex_RoofTiles } translate<0,BasisHoehe + PfostenHoehe,0> } 
      
      
     

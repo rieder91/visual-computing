@@ -34,6 +34,9 @@
             //       bekommen, der so hoch ist wie der Zaun breit ist, eine Breite von 0.4 hat,
             //       und mittig auf dem Zaun sitzt.
             
+            // Zaunaufsatzbreite laut Anleitung = 0.4    
+            #declare ZaunAufsatzBreite = 0.4;
+            
             
             union {
                 // Mauer hinten                 
@@ -56,13 +59,10 @@
                     <Hx, Hy, Hz - HausSZ>
                     <Hx - ZaunBreite, Hy + ZaunHoehe, Hz - GesSZ>
                 }
-                    
+                
                     
                 // Aufsätze falls nötig (ZaunHoehe < 1.5)
                 #if (ZaunHoehe < 1.5)
-                    
-                    // Zaunaufsatzbreite laut Anleitung = 0.4    
-                    #declare ZaunAufsatzBreite = 0.4;
                         
                     // Mauer hinten                 
                     box {
@@ -154,15 +154,17 @@
     camera
     {
         //orthographic
-        location <-20, 12, -25>
-        look_at <0, 10, 0>
+        location <-25, 9, -17>
+        look_at <-6, 0, 0>
     }
     light_source {<30, 100, 0> color Gray50 }
     light_source {<300, 10, -100> color Gray50 }
     light_source {<-30, 50, -30> color Gray50 }
     light_source {<-10, 40, -100> color Gray50 }
     light_source {<-10, 40, 100> color Gray50 }
-
-    object { Haus(4, 4, 1, 1) }
-
+    
+    union {
+        object { Haus(10, 6, 1, 1) translate <-10,0,0> }
+        object { Haus(10, 6, 2, 1) translate < 10,0,0> }
+    }
 #end
