@@ -42,7 +42,7 @@ This repository contains the source code for four of the six exercises done duri
 
 
 ### Collaborators:
- * Manuel Geier
+ * [Manuel Geier](http://github.com/mangei "Manuel Geier Github Profile")
  * Thomas Rieder
  * Patrick Säuerl
  * Markus Zisser
