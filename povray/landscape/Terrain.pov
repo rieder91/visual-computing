@@ -103,7 +103,8 @@ height_field
     translate <-0.5, 0, -0.5>
     scale <scaleSize, heightScale, scaleSize>
     translate <0, -waterLevel, 0>
-    texture {TT_Terrain}
+    //texture {TT_Terrain}
+    pigment { White }
 }
 
 //Der Himmel und die Wolken
