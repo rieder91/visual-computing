@@ -8,10 +8,10 @@
 global_settings { noise_generator 3 }
 global_settings { assumed_gamma 1.6 }
  
-#declare sx0 = 10;
-#declare sz0 = 8;
+#declare sx0 = 20;
+#declare sz0 = 20;
 #declare style0 = 1;
-#declare fence0 = 1;
+#declare fence0 = 0;
 
 #declare sx1 = 10;
 #declare sz1 = 8;
@@ -21,17 +21,17 @@ global_settings { assumed_gamma 1.6 }
 #declare sx2 = 10;
 #declare sz2 = 8;
 #declare style2 = 1;
-#declare fence2 = 1;
+#declare fence2 = 0;
 
 #declare sx3 = 10;
 #declare sz3 = 8;
-#declare style3 = 1;
+#declare style3 = 0;
 #declare fence3 = 1;
 
 #declare sx4 = 10;
 #declare sz4 = 8;
-#declare style4 = 1;
-#declare fence4 = 1;
+#declare style4 = 0;
+#declare fence4 = 0;
 
 #declare sx5 = 10;
 #declare sz5 = 8;
@@ -41,17 +41,17 @@ global_settings { assumed_gamma 1.6 }
 #declare sx6 = 10;
 #declare sz6 = 8;
 #declare style6 = 1;
-#declare fence6 = 1;      
+#declare fence6 = 0;      
 
 #declare sx7 = 10;
 #declare sz7 = 8;
-#declare style7 = 1;
+#declare style7 = 0;
 #declare fence7 = 1;
 
 #declare sx8 = 10;
 #declare sz8 = 8;
-#declare style8 = 1;
-#declare fence8 = 1;
+#declare style8 = 0;
+#declare fence8 = 0;
 
 #declare sx9 = 10;
 #declare sz9 = 8;
@@ -60,7 +60,7 @@ global_settings { assumed_gamma 1.6 }
    
 //Die Grass Textur erfordert, dass die Position der Kamera in camera_location gespeichert ist
 //#declare camera_location = <468.75, 30, 6.25>; 
-#declare camera_location = <-200, 300, -500>;
+#declare camera_location = <0, 300, -700>;
 camera
 {
     location camera_location   
@@ -117,18 +117,18 @@ plane
     texture {texClouds scale 20 }
 }        
                   
-object{Haus(sx0, sz0, style0, fence0)  translate <300,70,-20>   rotate <0,45,0>}
-object{Haus(sx1, sz1, style1, fence1)  translate <300,70,-40>   rotate <0,45,0>}
-object{Haus(sx2, sz2, style2, fence2)  translate <300,70,0>     rotate <0,45,0>}
-object{Haus(sx3, sz3, style3, fence3)  translate <300,70,20>    rotate <0,45,0>}
-object{Haus(sx4, sz4, style4, fence4)  translate <300,70,40>    rotate <0,45,0>}
-object{Haus(sx5, sz5, style5, fence5)  translate <-300,70,0>  rotate <0,45,0>}
-object{Haus(sx6, sz6, style6, fence6)  translate <-300,70,-20>  rotate <0,45,0>}
-object{Haus(sx7, sz7, style7, fence7)  translate <-300,70,20>    rotate <0,45,0>}
-object{Haus(sx8, sz8, style8, fence8)  translate <-300,70,40>   rotate <0,45,0>}
-object{Haus(sx9, sz9, style9, fence9)  translate <-300,70,60>   rotate <0,45,0>}
+object{Haus(sx0, sz0, style0, fence0)  translate <200,30,-140>   rotate <0,45,0>}
+object{Haus(sx1, sz1, style1, fence1)  translate <200,30,-100>   rotate <0,45,0>}
+object{Haus(sx2, sz2, style2, fence2)  translate <200,30,-60>     rotate <0,45,0>}
+object{Haus(sx3, sz3, style3, fence3)  translate <200,30,-20>    rotate <0,45,0>}
+object{Haus(sx4, sz4, style4, fence4)  translate <200,30,20>    rotate <0,45,0>}
+object{Haus(sx5, sz5, style5, fence5)  translate <-150,30,-140>  rotate <0,45,0>}
+object{Haus(sx6, sz6, style6, fence6)  translate <-150,30,-100>  rotate <0,45,0>}
+object{Haus(sx7, sz7, style7, fence7)  translate <-150,30,-60>    rotate <0,45,0>}
+object{Haus(sx8, sz8, style8, fence8)  translate <-150,30,-20>   rotate <0,45,0>}
+object{Haus(sx9, sz9, style9, fence9)  translate <-150,30,20>   rotate <0,45,0>}
 
-object{Brucke(<-50, 0, 337.5>, 5.448, <-14.109, 0, 206.108>, 8, 6, 1)     translate <0,50,0> rotate <0,-25,0>}
+object{Brucke(<-50, 0, 337.5>, 5.448, <-14.109, 0, 206.108>, 8, 6, 1)     translate <-50,20,-360> rotate <0,-25,0>}
                    
 //TODO erzeuge die Wasseroberflaeche mit einem plane Objekt. Verwende dafuer die texWater Textur.
 
