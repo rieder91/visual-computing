@@ -25,7 +25,7 @@
     #declare FensterAbstand = 0.02;     //*FensterAbstand (Breite des Wandstuecks zwischen zwei Fenstern)
     #declare FensterSprAnz = 2;         //*FensterSprAnz (ein boolscher Wert, der bestimmt, ob die Fenster eher viele (1) oder weinige Sprossen (2) haben)
     #declare FensterShape = 2;          //*FensterShape (ein boolscher Wert, der bestimmt, ob das Fenster rechtecking (1) oder gewoelbt ist (2))
-    #declare FensterStil = 1;           //*FensterStil (ein boolscher Wert, der bestimmt, ob das Fenster dekorative Elemente (nach freier Wahl) (1) hat oder nicht (2))
+    #declare FensterStil = 2;           //*FensterStil (ein boolscher Wert, der bestimmt, ob das Fenster dekorative Elemente (nach freier Wahl) (1) hat oder nicht (2))
  
     #declare TuerStil = 2;              //*TuerStil (ein boolscher Wert, der bestimmt, ob die Tuer rechtecking (1) oder gewoelbt (2) ist)
     #declare TuerBreite = 1.8;          // TuerBreite
@@ -53,7 +53,7 @@
         #declare FensterAbstand = 0.8;          //*FensterAbstand (Breite des Wandstuecks zwischen zwei Fenstern)
         #declare FensterSprAnz = 1;             //*FensterSprAnz (ein boolscher Wert, der bestimmt, ob die Fenster eher viele (1) oder weinige Sprossen (2) haben)
         #declare FensterShape = 1;              //*FensterShape (ein boolscher Wert, der bestimmt, ob das Fenster rechtecking (1) oder gewoelbt ist (2))
-        #declare FensterStil = 1;               //*FensterStil (ein boolscher Wert, der bestimmt, ob das Fenster dekorative Elemente (nach freier Wahl) (1) hat oder nicht (2))
+        #declare FensterStil = 2;               //*FensterStil (ein boolscher Wert, der bestimmt, ob das Fenster dekorative Elemente (nach freier Wahl) (2) hat oder nicht (1))
         #declare TuerStil = 1;                  //*TuerStil (ein boolscher Wert, der bestimmt, ob die Tuer rechtecking (1) oder gewoelbt (2) ist)
         #declare GiebelDach = 2;                //*GiebelDach (ein boolscher Wert, der bestimmt, ob das Haus ein Giebeldach(2 Seiten geneigt, 2 Seiten vertikal) (1) oder ein Walmdach(alle Seiten geneigt) (2) hat)
         #declare DachFirstHoehe = 3.2;          //*DachFirstHoehe (vertikaler Abstand von der Traufe(Wandoberkante) bis zum First(Dachspitze))
@@ -70,7 +70,7 @@
         #declare FensterAbstand = 1.0;          //*FensterAbstand (Breite des Wandstuecks zwischen zwei Fenstern)
         #declare FensterSprAnz = 2;             //*FensterSprAnz (ein boolscher Wert, der bestimmt, ob die Fenster eher viele (1) oder weinige Sprossen (2) haben)
         #declare FensterShape = 2;              //*FensterShape (ein boolscher Wert, der bestimmt, ob das Fenster rechtecking (1) oder gewoelbt ist (2))
-        #declare FensterStil = 2;               //*FensterStil (ein boolscher Wert, der bestimmt, ob das Fenster dekorative Elemente (nach freier Wahl) (1) hat oder nicht (2))
+        #declare FensterStil = 1;               //*FensterStil (ein boolscher Wert, der bestimmt, ob das Fenster dekorative Elemente (nach freier Wahl) (2) hat oder nicht (1))
         #declare TuerStil = 2;                  //*TuerStil (ein boolscher Wert, der bestimmt, ob die Tuer rechtecking (1) oder gewoelbt (2) ist)
         #declare GiebelDach = 1;                //*GiebelDach (ein boolscher Wert, der bestimmt, ob das Haus ein Giebeldach(2 Seiten geneigt, 2 Seiten vertikal) (1) oder ein Walmdach(alle Seiten geneigt) (2) hat)
         #declare DachFirstHoehe = 2.2;          //*DachFirstHoehe (vertikaler Abstand von der Traufe(Wandoberkante) bis zum First(Dachspitze))

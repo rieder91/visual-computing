@@ -180,7 +180,7 @@ union
     // Frontfenster
     #declare naechsterPlatz = Hx - TuerMauerAbstand - TuerBreite - ((TuerBreite/2.0) + (FensterBreite/2.0));   
          
-    #while ((Hx-HausSX) < naechsterPlatz - (FensterBreite + FensterAbstand))
+    #while ((Hx-HausSX) < naechsterPlatz - (FensterBreite))
           
         // Fenster ausschneiden
         #declare waende = difference {
@@ -289,13 +289,11 @@ union
                               
     
     // Waende ausgeben
-    
     #if (WandStyle = 1)
         object {waende texture { tex_HouseBrick }}
     #else    
         object {waende texture { tex_HousePlaster }}
-    #end
-      
+    #end           
       
     /***
      D A C H
