@@ -180,7 +180,7 @@ union
     // Frontfenster
     #declare naechsterPlatz = Hx - TuerMauerAbstand - TuerBreite - ((TuerBreite/2.0) + (FensterBreite/2.0));   
          
-    #while ((Hx-HausSX) < naechsterPlatz - (FensterBreite + FensterAbstand))
+    #while ((Hx-HausSX) < naechsterPlatz - (FensterBreite))
           
         // Fenster ausschneiden
         #declare waende = difference {
@@ -289,9 +289,11 @@ union
                               
     
     // Waende ausgeben
-    object {waende}
-    
-      
+    #if (WandStyle = 1)
+        object {waende texture { tex_HouseBrick }}
+    #else    
+        object {waende texture { tex_HousePlaster }}
+    #end           
       
     /***
      D A C H
@@ -357,7 +359,7 @@ union
     }
     
     // Dach erzeugen und nach oben schieben
-    object { dach translate<0,BasisHoehe + PfostenHoehe,0> } 
+    object { dach texture { tex_RoofTiles } translate<0,BasisHoehe + PfostenHoehe,0> } 
      
      
     

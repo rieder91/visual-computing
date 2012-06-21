@@ -1,16 +1,3 @@
-
-
-
-
-/* // NOTES //    to be removed
-
-   - Beim Zaunaufsatz steht, es soll mittig aufgesetzt werden, jedoch ist es im demobild auch nicht so, da geht es auch nur nach außen
-  
-*/                 
-
-
-
-
 #declare HOUSE = true;
 
 #include "math.inc"
@@ -30,6 +17,7 @@
     
     #if (HausSX < 4 | HausSZ < 4)
         #declare validInput = false;
+        #error "sx und sz duerfen nicht kleiner als 4 sein."
     #end
     
         
@@ -45,6 +33,9 @@
             //       Falls der Zaun eine Hoehe von weniger als 1.5 hat, soll er einen Aufsatz
             //       bekommen, der so hoch ist wie der Zaun breit ist, eine Breite von 0.4 hat,
             //       und mittig auf dem Zaun sitzt.
+            
+            // Zaunaufsatzbreite laut Anleitung = 0.4    
+            #declare ZaunAufsatzBreite = 0.4;
             
             
             union {
@@ -68,32 +59,34 @@
                     <Hx, Hy, Hz - HausSZ>
                     <Hx - ZaunBreite, Hy + ZaunHoehe, Hz - GesSZ>
                 }
-                    
+                
                     
                 // Aufsätze falls nötig (ZaunHoehe < 1.5)
                 #if (ZaunHoehe < 1.5)
                         
-                    #declare ZaunAufsatzBreite = 0.4;
-                        
                     // Mauer hinten                 
                     box {
                         <Hx - HausSX, Hy + ZaunHoehe, Hz - ZaunBreite>
-                        <Hx - GesSX + ZaunBreite - ZaunAufsatzBreite, Hy + ZaunHoehe + ZaunBreite, Hz - ZaunBreite + ZaunAufsatzBreite>
+                        <Hx - GesSX + ZaunBreite - ZaunAufsatzBreite/2.0 - ZaunBreite/2.0, Hy + ZaunHoehe + ZaunBreite, Hz - ZaunBreite + ZaunAufsatzBreite>
+                        translate <0,0,-ZaunAufsatzBreite/2.0+ZaunBreite/2.0>
                     }
                     // Mauer links
                     box {
                         <Hx - GesSX + ZaunBreite, Hy + ZaunHoehe, Hz - ZaunBreite>
-                        <Hx - GesSX + ZaunBreite - ZaunAufsatzBreite, Hy + ZaunHoehe + ZaunBreite, Hz - GesSZ + ZaunBreite - ZaunAufsatzBreite>
+                        <Hx - GesSX + ZaunBreite - ZaunAufsatzBreite, Hy + ZaunHoehe + ZaunBreite, Hz - GesSZ + ZaunBreite - ZaunAufsatzBreite/2.0 - ZaunBreite/2.0>
+                        translate <ZaunAufsatzBreite/2.0-ZaunBreite/2.,0,0>
                     }
                     // Mauer vorne
                     box {
                         <Hx - GesSX + ZaunBreite, Hy + ZaunHoehe, Hz - GesSZ + ZaunBreite>
-                        <Hx - ZaunBreite + ZaunAufsatzBreite, Hy + ZaunHoehe + ZaunBreite, Hz - GesSZ + ZaunBreite - ZaunAufsatzBreite>
+                        <Hx - ZaunBreite + ZaunAufsatzBreite/2.0 + ZaunBreite/2.0, Hy + ZaunHoehe + ZaunBreite, Hz - GesSZ + ZaunBreite - ZaunAufsatzBreite>
+                        translate <0,0,ZaunAufsatzBreite/2.0-ZaunBreite/2.0>
                     }
                     // Mauer rechts
                     box {
                         <Hx - ZaunBreite + ZaunAufsatzBreite, Hy + ZaunHoehe, Hz - HausSZ>
                         <Hx - ZaunBreite, Hy + ZaunHoehe + ZaunBreite, Hz - GesSZ>
+                        translate <-ZaunAufsatzBreite/2.0+ZaunBreite/2.0,0,0>
                     }   
                 
                 #end
@@ -116,8 +109,8 @@
                     difference {
                         
                         object {Zaun}
-                        box {
-                            <Hx-TuerMauerAbstand            , Hy-1                           , Hz-GesSZ+ZaunBreite+1>
+                        box { // Die Box ist so gross gewaehlt, dass der eingang auch dann komplett herausgestochen wird, falls der zaunaufsatz so gross ist, dass dieser auch geschnitten wird
+                            <Hx-TuerMauerAbstand            , Hy-1                           , Hz+1>
                             <Hx-TuerMauerAbstand-TuerBreite , Hy + ZaunHoehe + ZaunBreite + 1, Hz-GesSZ-ZaunBreite-ZaunAufsatzBreite-1>   
                         }
                     }
@@ -161,15 +154,17 @@
     camera
     {
         //orthographic
-        location <-15, 8, -15>
-        look_at <0, 0, 0>
+        location <-25, 9, -17>
+        look_at <-6, 0, 0>
     }
     light_source {<30, 100, 0> color Gray50 }
     light_source {<300, 10, -100> color Gray50 }
     light_source {<-30, 50, -30> color Gray50 }
     light_source {<-10, 40, -100> color Gray50 }
     light_source {<-10, 40, 100> color Gray50 }
-
-    object { Haus(10, 8, 1, 1) }
-
+    
+    union {
+        object { Haus(10, 6, 1, 1) translate <-10,0,0> }
+        object { Haus(10, 6, 2, 1) translate < 10,0,0> }
+    }
 #end
