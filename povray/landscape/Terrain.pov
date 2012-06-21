@@ -60,7 +60,7 @@ global_settings { assumed_gamma 1.6 }
    
 //Die Grass Textur erfordert, dass die Position der Kamera in camera_location gespeichert ist
 //#declare camera_location = <468.75, 30, 6.25>; 
-#declare camera_location = <0, 300, -700>;
+#declare camera_location = <150, 150, -150>;
 camera
 {
     location camera_location   
@@ -116,16 +116,16 @@ plane
     texture {texClouds scale 20 }
 }        
                   
-object{Haus(sx0, sz0, style0, fence0)  translate <200,30,-140>   rotate <0,45,0>}
-object{Haus(sx1, sz1, style1, fence1)  translate <200,30,-100>   rotate <0,45,0>}
-object{Haus(sx2, sz2, style2, fence2)  translate <200,30,-60>     rotate <0,45,0>}
-object{Haus(sx3, sz3, style3, fence3)  translate <200,30,-20>    rotate <0,45,0>}
-object{Haus(sx4, sz4, style4, fence4)  translate <200,30,20>    rotate <0,45,0>}
-object{Haus(sx5, sz5, style5, fence5)  translate <-150,30,-140>  rotate <0,45,0>}
-object{Haus(sx6, sz6, style6, fence6)  translate <-150,30,-100>  rotate <0,45,0>}
-object{Haus(sx7, sz7, style7, fence7)  translate <-150,30,-60>    rotate <0,45,0>}
-object{Haus(sx8, sz8, style8, fence8)  translate <-150,30,-20>   rotate <0,45,0>}
-object{Haus(sx9, sz9, style9, fence9)  translate <-150,30,20>   rotate <0,45,0>}
+object{Haus(sx0, sz0, style0, fence0)  rotate <0,180,0>     translate <-150,60,-140>    rotate <0,45,0>}
+object{Haus(sx1, sz1, style1, fence1)  rotate <0,180,0>     translate <-150,60,-100>    rotate <0,45,0>}
+object{Haus(sx2, sz2, style2, fence2)  rotate <0,180,0>     translate <-150,60,-60>     rotate <0,45,0>}
+object{Haus(sx3, sz3, style3, fence3)  rotate <0,180,0>     translate <-150,60,-20>     rotate <0,45,0>}
+object{Haus(sx4, sz4, style4, fence4)  rotate <0,180,0>     translate <-150,60,20>      rotate <0,45,0>}
+object{Haus(sx5, sz5, style5, fence5)  rotate <0,180,0>     translate <-150,30,-140>    rotate <0,45,0>}
+object{Haus(sx6, sz6, style6, fence6)  rotate <0,180,0>     translate <-150,30,-100>    rotate <0,45,0>}
+object{Haus(sx7, sz7, style7, fence7)  rotate <0,180,0>     translate <-150,30,-60>     rotate <0,45,0>}
+object{Haus(sx8, sz8, style8, fence8)  rotate <0,180,0>     translate <-150,30,-20>     rotate <0,45,0>}
+object{Haus(sx9, sz9, style9, fence9)  rotate <0,180,0>     translate <-150,30,20>      rotate <0,45,0>}
 
 object{Brucke(<-50, 0, 337.5>, 5.448, <-14.109, 0, 206.108>, 8, 6, 1)     translate <-50,20,-360> rotate <0,-25,0>}
                    
