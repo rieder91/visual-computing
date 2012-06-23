@@ -1,5 +1,3 @@
-#include "Math.inc"
-
 #macro DreiPunkteZylinder(h, P, w, rOffset)
 //Berechnet aus 3 Punkten deren gemeinsamen Kreis und zeichnet ihn als einen Zylinder
 
@@ -11,6 +9,8 @@
 //OUTPUT hat den Praefix result_DreiPunkteZylinder_
 //       px, py ... Zentrum des Kreises
 //       pr     ... Radius des Kreises
+
+// Rotation ist nicht nötig, da in der Brücke sichergestellt wird, dass beim 2. Punkt die y-Koordinate immer 0 ist
 
 
 // Länge der Kreissehne
