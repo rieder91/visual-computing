@@ -6,22 +6,31 @@
 #include "hausInit.inc"
 
 #macro Haus(sx, sz, style, fence)
-    
-    
-    //Die Stilparameter werden durch den folgenden Makroaufruf gesetzt
-    HausInit(sx, sz, style)
-    
-    
+     
+     
     // TODO: Kontrolle der Ausmasse und Inputparameter. Bei falschen Werten eine Fehlermeldung ausschreiben.
     #declare validInput = true;
     
-    #if (HausSX < 4 | HausSZ < 4)
+    #if (sx < 4 | sz < 4)
         #declare validInput = false;
-        #error "sx und sz duerfen nicht kleiner als 4 sein."
+        #error "sx und sz duerfen nicht kleiner als 4 sein"
     #end
     
+    #if (style != 1 & style != 2)
+        #declare validInput = false;
+        #error "style darf entweder '1' oder '2'sein"
+    #end
+    
+    #if (fence != 0 & fence != 1)
+        #declare validInput = false;
+        #error "fence darf entweder '0' (kein Zaun) oder '1' (mit Zaun) sein"
+    #end
+
         
-    #if (validInput = true)
+    #if (validInput = true) 
+    
+        //Die Stilparameter werden durch den folgenden Makroaufruf gesetzt
+        HausInit(sx, sz, style)
     
         // ZAUN
         #declare Zaun = difference

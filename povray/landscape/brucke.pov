@@ -17,7 +17,7 @@
 //          fuer die Marker - die Textur TT_Decor zu nehmen.
 
     // Angabe aus dem Web
-    #declare k = 11;
+    #declare k = 10;
     #declare d = 4;
     
     // Verschieben und Rotieren
@@ -25,7 +25,7 @@
     #declare alph = VAngleD(<1, 0, 0>, B);
     #declare s = sqrt(B.x * B.x + B.z * B.z);
     
-    #declare aSize = s / (2*(k + 3));
+    #declare aSize = s / (2*(k + 3 - 1));
 
     // TODO: Berechne die Koordinaten von B nach der Transformation und speichere sie in P.
     // Hint: Es ist der projizierte Abstand zwischen A und B (finde heraus in welcher Ebene!) zu nutzen.
@@ -100,7 +100,8 @@
             #declare i = 0;
             #declare pos = 0;
             
-            #while (i < 2 * (k + 3))
+            #while (i <
+             2 * (k + 3 - 1))
                 #if (mod(i, 2) = 0 & i != 0)
                     // Schnittpunkt bestimmen
                     lineArcIntersection(pos, circle, circleR);
@@ -117,8 +118,9 @@
             #end
         }
 
-    // Zurückverschieben/-rotieren
-    rotate<0, alph, 0>
+    // Zurückverschieben/-rotieren 
+    // TODO Fallunterscheidung anhand des Winkels
+    rotate<0, -alph, 0>
     translate<A.x, 0, A.z>   
     }
     
@@ -160,8 +162,11 @@
     //look_at <373.43,0 , -38.231>
     
     // Seitenansicht
-    location<310, 0, 35>
-    look_at <411, 0, 18>
+    //location<310, 0, 35>
+    //look_at <411, 0, 18>
+    
+    location<0, 20, 100>
+    look_at <-30, 0, 350>
     
 }
 
@@ -169,11 +174,11 @@ light_source {<450 100, 95> color White }
 light_source { <350, 20, -100> color White }
 light_source { <0, 0, -1> color Gray50 }
 light_source { <0, 0, 1> color Gray20 }
-    
+                          
     // Angaben aus dem Web
-    #declare PP0 = <450, 0, 75>;
-    #declare PP1 = <373.43,0 , -38.231>;
-    #declare h = 5.468;
+    #declare PP0 = <75, 0,  231.25>;
+    #declare PP1 = <-16.994, 0, 328.621>;
+    #declare h = 5.358;
 
     sphere {PP0 4 pigment {Blue}}
     sphere {PP1 4 pigment {Red}}
