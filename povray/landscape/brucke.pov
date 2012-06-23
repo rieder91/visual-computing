@@ -107,7 +107,7 @@
                     lineArcIntersection(pos, circle, circleR);
                     
                     // Rausschneiden
-                    box {<pos - aSize/2, result_lineArcIntersection - d - aSize/2, -aSize> <pos + aSize/2, -2 * circleR, aSize>}
+                    box {<pos - aSize/2, result_lineArcIntersection - d - aSize/2, -bridgeWidth> <pos + aSize/2, -2 * circleR, bridgeWidth>}
                     
                     // Abrunden
                     cylinder {<pos, result_lineArcIntersection - d - aSize/2, bridgeWidth> <pos, result_lineArcIntersection - d - aSize/2, -bridgeWidth> aSize/2}
@@ -118,9 +118,18 @@
             #end
         }
 
+<<<<<<< HEAD
     // Zurückverschieben/-rotieren 
     // TODO Fallunterscheidung anhand des Winkels
     rotate<0, -alph, 0>
+=======
+    // Zurückverschieben/-rotieren; Richtung hängt davon ab, welcher Punkt die größere Z-Koordinate hat
+    #if (B.z < 0)
+        rotate<0, alph, 0>
+    #else
+        rotate<0, -alph, 0>
+    #end
+>>>>>>> 0c4e543150b5d70c4bf7fbf354b35f6aab53240f
     translate<A.x, 0, A.z>   
     }
     
@@ -138,7 +147,7 @@
 //      result_lineArcIntersection ... die groessere y-Koordinate der (2) Schnittpunkte
 //                                     der vertikalen Geraden durch (px,0) mit dem Bogen
     
-    #declare result_lineArcIntersection = cM.y + sqrt(r*r - (px - cM.x) * (px - cM.x))
+    #declare result_lineArcIntersection = cM.y + sqrt(cR * cR - (px - cM.x) * (px - cM.x))
 #end
 
 /////////////////////////////////////////////////////////////////////////
@@ -162,12 +171,17 @@
     //look_at <373.43,0 , -38.231>
     
     // Seitenansicht
+<<<<<<< HEAD
     //location<310, 0, 35>
     //look_at <411, 0, 18>
     
     location<0, 20, 100>
     look_at <-30, 0, 350>
     
+=======
+    location<310, 0, 35>
+    look_at <411, 0, 18>
+>>>>>>> 0c4e543150b5d70c4bf7fbf354b35f6aab53240f
 }
 
 light_source {<450 100, 95> color White }
@@ -176,10 +190,17 @@ light_source { <0, 0, -1> color Gray50 }
 light_source { <0, 0, 1> color Gray20 }
                           
     // Angaben aus dem Web
+<<<<<<< HEAD
     #declare PP0 = <75, 0,  231.25>;
     #declare PP1 = <-16.994, 0, 328.621>;
     #declare h = 5.358;
 
+=======
+    #declare PP0 = <450, 0, 75>;
+    #declare PP1 = <373.43,0 , -38.231>;
+    #declare h = 5.468;
+    
+>>>>>>> 0c4e543150b5d70c4bf7fbf354b35f6aab53240f
     sphere {PP0 4 pigment {Blue}}
     sphere {PP1 4 pigment {Red}}
 
