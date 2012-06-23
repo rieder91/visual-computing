@@ -117,8 +117,12 @@
             #end
         }
 
-    // Zurückverschieben/-rotieren
-    rotate<0, alph, 0>
+    // Zurückverschieben/-rotieren; Richtung hängt davon ab, welcher Punkt die größere Z-Koordinate hat
+    #if (B.z < 0)
+        rotate<0, alph, 0>
+    #else
+        rotate<0, -alph, 0>
+    #end
     translate<A.x, 0, A.z>   
     }
     
@@ -162,7 +166,6 @@
     // Seitenansicht
     location<310, 0, 35>
     look_at <411, 0, 18>
-    
 }
 
 light_source {<450 100, 95> color White }
@@ -174,7 +177,7 @@ light_source { <0, 0, 1> color Gray20 }
     #declare PP0 = <450, 0, 75>;
     #declare PP1 = <373.43,0 , -38.231>;
     #declare h = 5.468;
-
+    
     sphere {PP0 4 pigment {Blue}}
     sphere {PP1 4 pigment {Red}}
 
