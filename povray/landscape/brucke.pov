@@ -106,7 +106,7 @@
                     lineArcIntersection(pos, circle, circleR);
                     
                     // Rausschneiden
-                    box {<pos - aSize/2, result_lineArcIntersection - d - aSize/2, -aSize> <pos + aSize/2, -2 * circleR, aSize>}
+                    box {<pos - aSize/2, result_lineArcIntersection - d - aSize/2, -bridgeWidth> <pos + aSize/2, -2 * circleR, bridgeWidth>}
                     
                     // Abrunden
                     cylinder {<pos, result_lineArcIntersection - d - aSize/2, bridgeWidth> <pos, result_lineArcIntersection - d - aSize/2, -bridgeWidth> aSize/2}
@@ -140,7 +140,7 @@
 //      result_lineArcIntersection ... die groessere y-Koordinate der (2) Schnittpunkte
 //                                     der vertikalen Geraden durch (px,0) mit dem Bogen
     
-    #declare result_lineArcIntersection = cM.y + sqrt(r*r - (px - cM.x) * (px - cM.x))
+    #declare result_lineArcIntersection = cM.y + sqrt(cR * cR - (px - cM.x) * (px - cM.x))
 #end
 
 /////////////////////////////////////////////////////////////////////////
