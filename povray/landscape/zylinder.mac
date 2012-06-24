@@ -17,10 +17,10 @@
 #declare s1 = P.x;
 
 // Radius
-#declare r = (4*h*h + s1*s1) / 8*h;
+#declare r = (4*h*h + s1*s1) / (8*h);
 
 // Mittelpunkt
-#declare Center = <s1, -r, 0>;
+#declare Center = <s1 / 2, h - r, 0>;
 
 // Lösungen
 #declare px = Center.x;

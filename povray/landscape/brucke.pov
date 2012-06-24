@@ -17,7 +17,7 @@
 //          fuer die Marker - die Textur TT_Decor zu nehmen.
 
     // Angabe aus dem Web
-    #declare k = 10;
+    #declare k = 11;
     #declare d = 4;
     
     // Verschieben und Rotieren
@@ -25,7 +25,7 @@
     #declare alph = VAngleD(<1, 0, 0>, B);
     #declare s = sqrt(B.x * B.x + B.z * B.z);
     
-    #declare aSize = s / (2*(k + 3 - 1));
+    #declare aSize = s / (2*(k + 3));
 
     // TODO: Berechne die Koordinaten von B nach der Transformation und speichere sie in P.
     // Hint: Es ist der projizierte Abstand zwischen A und B (finde heraus in welcher Ebene!) zu nutzen.
@@ -84,9 +84,12 @@
                     cylinder {<0, 0, bridgeWidth/4> <0, 10, bridgeWidth/4> 0.3}        
                     cylinder {<0, 0, -bridgeWidth/4> <0, 10, -bridgeWidth/4> 0.3}
                     
+                    
+                    lineArcIntersection(s/2, circle, circleR);
+                    
                     // Scheitel
-                    cylinder {<s/2, 0, bridgeWidth/4> <s/2, 10, bridgeWidth/4> 0.3}
-                    cylinder {<s/2, 0, -bridgeWidth/4> <s/2, 10, -bridgeWidth/4> 0.3}
+                    cylinder {<s/2, result_lineArcIntersection, bridgeWidth/4> <s/2, result_lineArcIntersection + 10, bridgeWidth/4> 0.3}
+                    cylinder {<s/2, result_lineArcIntersection, -bridgeWidth/4> <s/2, result_lineArcIntersection + 10, -bridgeWidth/4> 0.3}
                     
                     // Punkt B
                     cylinder {<s, 0, bridgeWidth/4> <s, 10 , bridgeWidth/4> 0.3}
@@ -100,8 +103,7 @@
             #declare i = 0;
             #declare pos = 0;
             
-            #while (i <
-             2 * (k + 3 - 1))
+            #while (i < 2 * (k + 3))
                 #if (mod(i, 2) = 0 & i != 0)
                     // Schnittpunkt bestimmen
                     lineArcIntersection(pos, circle, circleR);
@@ -118,18 +120,12 @@
             #end
         }
 
-<<<<<<< HEAD
-    // Zurückverschieben/-rotieren 
-    // TODO Fallunterscheidung anhand des Winkels
-    rotate<0, -alph, 0>
-=======
     // Zurückverschieben/-rotieren; Richtung hängt davon ab, welcher Punkt die größere Z-Koordinate hat
     #if (B.z < 0)
         rotate<0, alph, 0>
     #else
         rotate<0, -alph, 0>
     #end
->>>>>>> 0c4e543150b5d70c4bf7fbf354b35f6aab53240f
     translate<A.x, 0, A.z>   
     }
     
@@ -146,7 +142,7 @@
 // OUTPUT
 //      result_lineArcIntersection ... die groessere y-Koordinate der (2) Schnittpunkte
 //                                     der vertikalen Geraden durch (px,0) mit dem Bogen
-    
+    // in die Kreisgleicung eingesetzt
     #declare result_lineArcIntersection = cM.y + sqrt(cR * cR - (px - cM.x) * (px - cM.x))
 #end
 
@@ -167,43 +163,59 @@
     look_at <450, 0, 75>
     
     // Punkt B
-    //location <340, 20 , -38.231>
-    //look_at <373.43,0 , -38.231>
+    location <340, 20 , -38.231>
+    look_at <373.43,0 , -38.231>
     
     // Seitenansicht
-<<<<<<< HEAD
-    //location<310, 0, 35>
-    //look_at <411, 0, 18>
-    
-    location<0, 20, 100>
-    look_at <-30, 0, 350>
-    
-=======
     location<310, 0, 35>
     look_at <411, 0, 18>
->>>>>>> 0c4e543150b5d70c4bf7fbf354b35f6aab53240f
 }
 
 light_source {<450 100, 95> color White }
 light_source { <350, 20, -100> color White }
 light_source { <0, 0, -1> color Gray50 }
 light_source { <0, 0, 1> color Gray20 }
-                          
+    
     // Angaben aus dem Web
-<<<<<<< HEAD
-    #declare PP0 = <75, 0,  231.25>;
-    #declare PP1 = <-16.994, 0, 328.621>;
-    #declare h = 5.358;
-
-=======
     #declare PP0 = <450, 0, 75>;
     #declare PP1 = <373.43,0 , -38.231>;
     #declare h = 5.468;
     
->>>>>>> 0c4e543150b5d70c4bf7fbf354b35f6aab53240f
     sphere {PP0 4 pigment {Blue}}
     sphere {PP1 4 pigment {Red}}
 
     object {Brucke(PP0, h, PP1, 8, 6, 1) pigment {White}}    
 
 #end
+
+// Ursprüngliche Angabe
+/*
+#ifndef (TERRAIN)
+    #include "colors.inc"
+    background { White } 
+    camera
+    {
+        //orthographic
+        location <-60, 20, -80>
+        look_at <0, 0, 0>
+    }
+
+    light_source {<30, 100, 0> color Gray75 }
+    light_source {<300, 10, -100> color Gray75 }
+    light_source {<-30, 50, -30> color Gray75 }
+    light_source {<-10, 40, -100> color Gray75 }
+    light_source {<-10, 40, 100> color Gray75 }
+
+    #declare PP0 = <-40, 0, 0>;
+    #declare PP1 = <40, 0, 0>;
+    #declare h = 5;
+    object {Brucke(PP0, h, PP1, 8, 6, 1)} 
+        
+        #declare PP0 = <-40, 0, 0>;
+    #declare PP1 = <40, 0, 0>;
+    sphere {PP0 2 pigment {Red}} // markiert Punkt A
+    sphere {PP1 2 pigment {Red}} // markiert Punkt B
+
+
+#end
+*/
