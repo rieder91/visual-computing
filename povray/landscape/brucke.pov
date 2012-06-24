@@ -211,8 +211,9 @@ light_source { <0, 0, 1> color Gray20 }
     #declare h = 5;
     object {Brucke(PP0, h, PP1, 8, 6, 1)} 
         
-        #declare PP0 = <-40, 0, 0>;
+    #declare PP0 = <-40, 0, 0>;
     #declare PP1 = <40, 0, 0>;
+    
     sphere {PP0 2 pigment {Red}} // markiert Punkt A
     sphere {PP1 2 pigment {Red}} // markiert Punkt B
 
