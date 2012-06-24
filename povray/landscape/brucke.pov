@@ -25,7 +25,7 @@
     #declare alph = VAngleD(<1, 0, 0>, B);
     #declare s = sqrt(B.x * B.x + B.z * B.z);
     
-    #declare aSize = s / (2*(k + 3));
+    #declare aSize = s / (2*(k+2));
 
     // TODO: Berechne die Koordinaten von B nach der Transformation und speichere sie in P.
     // Hint: Es ist der projizierte Abstand zwischen A und B (finde heraus in welcher Ebene!) zu nutzen.
@@ -103,7 +103,7 @@
             #declare i = 0;
             #declare pos = 0;
             
-            #while (i < 2 * (k + 3))
+            #while (i < 2 * (k + 2))
                 #if (mod(i, 2) = 0 & i != 0)
                     // Schnittpunkt bestimmen
                     lineArcIntersection(pos, circle, circleR);
